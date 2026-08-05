@@ -47,22 +47,44 @@ PROJECT = {
 }
 ```
 
-## 🎯 Veja exemplos reais
+## 🗂️ Explore — veja o MimePy em ação
 
-### ☕ Landing de negócio
-Site de 1 página de um negócio fictício — **[Café Aurora](examples/landing/out/index.html)**. Hero com gradiente, cards de produto e navbar fixa.
+Cada item abre a respectiva página gerada pelo framework.
 
-[Ver a landing do Café Aurora →](examples/landing/out/index.html)
+### 📚 Documentação
+Documentação **geral do framework** (mode docs): sidebar com ícones, busca no
+conteúdo, temas, âncoras, TOC e mais — 8 guias completos.
 
-### 🏗️ Showcase de recursos
-Todo o potencial visual do MimePy — doc + landing, temas, busca e cards — **num único Markdown**.
+[📘 Abrir a documentação geral →](../index.html)
 
-[Ver o showcase de recursos →](examples/recursos/out/index.html)
+### 🎯 Exemplos prontos
 
-### 📚 Documentação completa
-Este framework documentado **com ele mesmo** (mode: docs) — sidebar, busca em conteúdo, âncoras e mais.
+**☕ Landing de negócio** — Café Aurora: hero com gradiente, cards de produto, navbar fixa.
+[Ver a landing →](../examples/landing/out/index.html)
 
-[Abrir a documentação do MimePy →](index.html)
+**🏗️ Showcase de recursos** — todo o potencial visual num único Markdown.
+[Ver o showcase →](../examples/recursos/out/index.html)
+
+**☀️ Demo (Solaris Kit)** — reuso em outro projeto (docs fictícias de produto).
+[Ver o demo →](../examples/demo/out/solaris-kit.html)
+
+**📰 Blog de exemplo** — modo `blog` com posts ordenados por data.
+[Ver o blog →](../examples/blog/out/index.html)
+
+### 🎨 Templates de landing (copie e edite)
+
+**🚀 Startup** — proposta de valor + planos + FAQ.
+[Ver template →](../examples/templates/startup/out/index.html)
+
+**🛠️ Produto** — destaques + como funciona.
+[Ver template →](../examples/templates/produto/out/index.html)
+
+**🎟️ Evento** — agenda + palestrantes + inscrição.
+[Ver template →](../examples/templates/evento/out/index.html)
+
+**📚 Docs** — página inicial de documentação de projeto.
+[Ver template →](../examples/templates/docs/out/index.html)
+
 
 ## 🎨 Design system & acessibilidade
 
