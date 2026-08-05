@@ -45,12 +45,19 @@ jobs:
           python-version: '3.11'
       - name: Instalar dependência
         run: pip install markdown
-      - name: Gerar landing do site
-        run: python src/build.py site/config.site.py
+      - name: Gerar landing do site + artefatos de Pages
+        run: |
+          pip install markdown
+          python src/build.py site/config.site.py
+          # N23: gera 404.html, sitemap.xml e robots.txt no _site
+          python scripts/deploy_pages.py site/config.site.py
       - name: Preparar artefato (site + doc)
         run: |
           mkdir -p _site
           cp -r site/out/index.html _site/index.html 2>/dev/null || cp site/index.html _site/index.html
+          cp -r site/404.html _site/404.html 2>/dev/null || true
+          cp -r site/sitemap.xml _site/sitemap.xml 2>/dev/null || true
+          cp -r site/robots.txt _site/robots.txt 2>/dev/null || true
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
