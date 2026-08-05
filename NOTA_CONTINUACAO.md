@@ -24,6 +24,16 @@
 - **Commits + push** no `main` (último: `e1b765d` s/ links do site). CI verde no push
   anterior; Pages servindo. **Backup** `MimePy-projeto-2026-08-05_005507.zip`.
 
+- **Deploy GH Pages corrigido p/ publicar TODAS as páginas**: `scripts/deploy_pages.py`
+  agora monta `_site/` completo (home=landing, `/docs/`, `/examples/` incl. templates,
+  sitemap/robots/404). Workflow `ci.yml` gera todas as páginas antes do deploy.
+  Validado: 9 links da landing resolvem na estrutura publicada (`_site`). `.gitignore`
+  agora cobre `_site/`.
+- **Guia `GUIA_GITHUB_PAGES.md`** criado na raiz — GitHub Pages + como criar blog
+  com GitHub/Pages (mode blog + frontmatter + workflow).
+- **Segurança**: varredura completa antes do push (caminhos pessoais corrigidos em
+  `NOTA_CONTINUACAO.md`; sem emails reais, sem tokens, sem refs a projetos privados).
+
 ## 📌 Onde parar / próximos passos possíveis
 
 - Confirmar que o GitHub Actions rodou verde no 1º push (Actions → CI) e que o
