@@ -57,6 +57,12 @@ conteúdo, temas, âncoras, TOC e mais — 8 guias completos.
 
 [📘 Abrir a documentação geral →](docs/index.html)
 
+**🌐 Guia do GitHub Pages** — como hospedar seu site/blog no GitHub Pages e
+conectar várias páginas entre si.
+
+[🌐 Abrir o guia do GitHub Pages →]
+(https://github.com/CarlosHenriqueA/mimepy/blob/main/GUIA_GITHUB_PAGES.md)
+
 ### 🎯 Exemplos prontos
 
 **☕ Landing de negócio** — Café Aurora: hero com gradiente, cards de produto, navbar fixa.
