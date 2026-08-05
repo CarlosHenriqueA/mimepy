@@ -23,14 +23,21 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Instalar dependência
+      - name: Instalar dependências
         run: pip install markdown pytest
       - name: Rodar testes (build + segurança)
         run: python -m pytest -q
-      - name: Gerar builds de exemplo
+      - name: Gerar todos os builds (regenerável)
         run: |
           python src/build.py config.py
           python src/build.py site/config.site.py
+          python src/build.py examples/landing/config.landing.py
+          python src/build.py examples/recursos/config.recursos.py
+          python src/build.py examples/demo/config.demo.py
+          python src/build.py examples/blog/config.blog.py
+          for t in examples/templates/startup examples/templates/produto examples/templates/evento examples/templates/docs; do
+            python src/build.py "$t/config.py"
+          done
 
   build-pages:
     if: github.ref == 'refs/heads/main'
@@ -45,21 +52,21 @@ jobs:
           python-version: '3.11'
       - name: Instalar dependência
         run: pip install markdown
-      - name: Gerar landing do site + artefatos de Pages
+      - name: Gerar todas as páginas (doc + landing + exemplos + templates)
         run: |
-          pip install markdown
+          python src/build.py config.py
           python src/build.py site/config.site.py
-          # N23: gera 404.html, sitemap.xml e robots.txt no _site
-          python scripts/deploy_pages.py site/config.site.py
-      - name: Preparar artefato (site + doc)
-        run: |
-          mkdir -p _site
-          cp -r site/out/index.html _site/index.html 2>/dev/null || cp site/index.html _site/index.html
-          cp -r site/404.html _site/404.html 2>/dev/null || true
-          cp -r site/sitemap.xml _site/sitemap.xml 2>/dev/null || true
-          cp -r site/robots.txt _site/robots.txt 2>/dev/null || true
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+          python src/build.py examples/landing/config.landing.py
+          python src/build.py examples/recursos/config.recursos.py
+          python src/build.py examples/demo/config.demo.py
+          python src/build.py examples/blog/config.blog.py
+          for t in examples/templates/startup examples/templates/produto examples/templates/evento examples/templates/docs; do
+            python src/build.py "$t/config.py"
+          done
+      - name: Montar _site completo (home + doc + exemplos + auxiliares)
+        run: python scripts/deploy_pages.py site/config.site.py
+      - name: Upload do site
+        uses: actions/upload-pages-artifact@v3
         with:
           path: _site
       - id: deployment

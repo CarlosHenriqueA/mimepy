@@ -1,7 +1,7 @@
 # 🧭 MimePy — Nota de Continuação (para retomar outra hora)
 
 > **Para retornar a este trabalho:** leia este arquivo + `SESSION_CHECKPOINT.md`.
-> Local: `C:\Users\Admin\mimepy` · Repo: `github.com/CarlosHenriqueA/mimepy`.
+> Local: `<pasta-do-framework>` · Repo: `github.com/CarlosHenriqueA/mimepy`.
 > Última atualização: 2026-08-05.
 
 ## ✅ O que foi feito (último bloco)

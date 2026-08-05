@@ -55,35 +55,35 @@ Cada item abre a respectiva página gerada pelo framework.
 Documentação **geral do framework** (mode docs): sidebar com ícones, busca no
 conteúdo, temas, âncoras, TOC e mais — 8 guias completos.
 
-[📘 Abrir a documentação geral →](../index.html)
+[📘 Abrir a documentação geral →](docs/index.html)
 
 ### 🎯 Exemplos prontos
 
 **☕ Landing de negócio** — Café Aurora: hero com gradiente, cards de produto, navbar fixa.
-[Ver a landing →](../examples/landing/out/index.html)
+[Ver a landing →](examples/landing/out/index.html)
 
 **🏗️ Showcase de recursos** — todo o potencial visual num único Markdown.
-[Ver o showcase →](../examples/recursos/out/index.html)
+[Ver o showcase →](examples/recursos/out/index.html)
 
 **☀️ Demo (Solaris Kit)** — reuso em outro projeto (docs fictícias de produto).
-[Ver o demo →](../examples/demo/out/solaris-kit.html)
+[Ver o demo →](examples/demo/out/solaris-kit.html)
 
 **📰 Blog de exemplo** — modo `blog` com posts ordenados por data.
-[Ver o blog →](../examples/blog/out/index.html)
+[Ver o blog →](examples/blog/out/index.html)
 
 ### 🎨 Templates de landing (copie e edite)
 
 **🚀 Startup** — proposta de valor + planos + FAQ.
-[Ver template →](../examples/templates/startup/out/index.html)
+[Ver template →](examples/templates/startup/out/index.html)
 
 **🛠️ Produto** — destaques + como funciona.
-[Ver template →](../examples/templates/produto/out/index.html)
+[Ver template →](examples/templates/produto/out/index.html)
 
 **🎟️ Evento** — agenda + palestrantes + inscrição.
-[Ver template →](../examples/templates/evento/out/index.html)
+[Ver template →](examples/templates/evento/out/index.html)
 
 **📚 Docs** — página inicial de documentação de projeto.
-[Ver template →](../examples/templates/docs/out/index.html)
+[Ver template →](examples/templates/docs/out/index.html)
 
 
 ## 🎨 Design system & acessibilidade
