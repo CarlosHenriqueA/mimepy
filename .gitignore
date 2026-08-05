@@ -1,0 +1,42 @@
+# ============================================================
+# MimePy — .gitignore (segurança: nada pessoal/sensível no git)
+# ============================================================
+
+# ---------- Python ----------
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# ---------- Ambiente / segredos ----------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+auth.json
+credentials.json
+*.token
+
+# ---------- Saída gerada (regenerável com build.py) ----------
+index.html
+examples/*/out/
+
+# ---------- Arquivos pessoais / de contexto (NÃO publicar) ----------
+# Estes descrevem o projeto interno do autor e não devem ir para o repositório
+# público do framework. Substitua exemplos reais por fictícios antes de publicar.
+HANDOFF_CONVERSA.md
+SESSION_CHECKPOINT.md
+backups/
+*.zip
+
+# ---------- Sistema / editor ----------
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/
+
+# ---------- Mobile / outros ----------
+node_modules/

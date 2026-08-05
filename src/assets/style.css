@@ -1,0 +1,298 @@
+/* ============================================================
+   MimePy v0.2 — style.css (tema do framework)
+   Estilo GitBook / ReadTheDocs / Docusaurus.
+   -----------------------------------------------------------------
+   RESPONSIVO (computador + celular) · DARK MODE · PRINT
+   Tudo via CSS variables — o dark mode troca só as variáveis.
+   ============================================================ */
+:root{
+  --bg:#ffffff; --fg:#1f2937; --muted:#64748b;
+  --accent:#0d9488; --accent2:#0f766e;        /* esmeralda/teal (autoral) */
+  --cta:#f59e0b; --cta-strong:#d97706;         /* âmbar — CTA único */
+  --border:#e5e7eb; --code-bg:#f1f5f9;
+  --note-bg:#ecfeff; --note-border:#5eead4;
+  --sidebar-bg:#0f172a; --sidebar-fg:#e2e8f0;
+  --pre-bg:#0f172a; --pre-fg:#e2e8f0;
+  --tool-bg:#1f2937; --input-bg:#1f2937;
+}
+[data-theme="dark"]{
+  --bg:#0f172a; --fg:#e2e8f0; --muted:#94a3b8;
+  --accent:#2dd4bf; --accent2:#5eead4;
+  --cta:#fbbf24; --cta-strong:#f59e0b;
+  --border:#1e293b; --code-bg:#1e293b;
+  --note-bg:#134e4a; --note-border:#2dd4bf;
+  --sidebar-bg:#020617; --sidebar-fg:#cbd5e1;
+  --pre-bg:#0b1220; --pre-fg:#e2e8f0;
+  --tool-bg:#0f172a; --input-bg:#0f172a;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+html,body{height:100%;}
+
+/* ---------- Acessibilidade (WCAG 2.2 AA) ---------- */
+/* Skip link (2.4.1 Bypass Blocks) — aparece só no foco (teclado) */
+.skip-link{position:absolute;top:-60px;left:16px;z-index:200;background:var(--accent);
+  color:#fff;padding:10px 16px;border-radius:0 0 8px 8px;text-decoration:none;font-weight:600;
+  transition:top .2s;}
+.skip-link:focus{top:0;color:#fff;}
+/* Foco visível robusto (2.4.7) — garante contraste em qualquer fundo */
+a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{
+  outline:3px solid var(--accent);outline-offset:2px;border-radius:4px;}
+#menu-chk:focus-visible ~ .menu-toggle{outline:3px solid var(--accent);outline-offset:2px;}
+/* Reduz movimento p/ quem prefere (2.3.3) */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important;
+    scroll-behavior:auto !important;}
+}
+
+/* Modo ALTO CONTRASTE (recurso WAI): ativado pelo botão ◐ no topo da sidebar.
+   SMIL: sobrepõe as cores do tema com preto/amarelo de máximo contraste,
+   independente do dark/light. Satisfaz também WCAG 1.4.6 (contraste AAA). */
+.df-hc body{background:#000 !important;color:#ff0 !important;}
+.df-hc .sidebar,.df-hc .footer{background:#000 !important;color:#ff0 !important;}
+.df-hc .sidebar nav a.df-active{background:#333 !important;color:#ff0 !important;}
+.df-hc .main h1,.df-hc .main h2,.df-hc .main h3{color:#ff0 !important;}
+.df-hc code,.df-hc pre,.df-hc blockquote,.df-hc table{background:#000 !important;
+  color:#ff0 !important;border-color:#ff0 !important;}
+.df-hc a,.df-hc .navpn{color:#0ff !important;text-decoration:underline !important;}
+.df-hc th{background:#222 !important;color:#ff0 !important;}
+.df-hc tr:nth-child(even){background:#111 !important;}
+.wrap{display:flex;min-height:100vh;}
+
+/* ---------- Sidebar ---------- */
+.sidebar{width:300px;flex-shrink:0;background:var(--sidebar-bg);color:var(--sidebar-fg);
+  padding:24px 16px;overflow-y:auto;position:sticky;top:0;height:100vh;}
+.brand-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px;gap:8px;}
+.brand{font-size:1.15rem;font-weight:700;color:#fff;display:inline-flex;align-items:center;gap:10px;min-width:0;flex:1 1 auto;line-height:1.3;}
+.df-logo{height:28px;width:auto;border-radius:6px;vertical-align:middle;}
+/* Badge do emoji no brand (visual profissional — caixinha com fundo) */
+.df-badge{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;
+  width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#0d9488,#0f766e);
+  border:1px solid rgba(94,234,212,.35);font-size:1.05rem;box-shadow:0 2px 8px rgba(0,0,0,.3);}
+.tools{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end;flex:0 0 auto;max-width:170px;}
+.tools button{background:var(--tool-bg);color:#fff;border:1px solid #374151;border-radius:6px;
+  width:30px;height:30px;cursor:pointer;font-size:.78rem;line-height:1;padding:0;}
+.tools button:hover{background:#374151;}
+.tools button.df-fsize.on{background:var(--accent);border-color:var(--accent);}
+.tools button#df-hc[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);}
+.brand-sub{font-size:.75rem;color:#9ca3af;margin-bottom:16px;}
+#df-search{width:100%;padding:10px 12px 10px 34px;margin-bottom:14px;border:1px solid #374151;
+  border-radius:9px;background:var(--input-bg);color:#fff;font-size:.85rem;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='15' height='15' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2.2'><circle cx='11' cy='11' r='7'/><path d='M21 21l-4.3-4.3'/></svg>");
+  background-repeat:no-repeat;background-position:10px 10px;transition:border-color .15s,box-shadow .15s;}
+#df-search:focus{outline:none;border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(13,148,136,.18);}
+.sidebar nav a{display:block;color:#d1d5db;text-decoration:none;font-size:.85rem;
+  padding:8px 12px;border-radius:8px;margin:1px 0;border-left:3px solid transparent;
+  transition:background .15s,color .15s,border-color .15s;}
+.sidebar nav a:hover{background:#1f2937;color:#fff;border-left-color:#2dd4bf;}
+/* Link ativo (aria-current / scrollspy): destaca a seção visível.
+   Melhora navegação por teclado/leitor de tela (WCAG 2.4.1). */
+.sidebar nav a.df-active{background:rgba(13,148,136,.22);color:#5eead4;font-weight:600;
+  border-left-color:#2dd4bf;}
+
+/* Botão menu mobile */
+.menu-toggle{display:none;}
+/* O checkbox de controle do menu deve ficar SEMPRE invisível (desktop e mobile),
+   senão aparece um "quadradinho" no topo em telas de computador. */
+#menu-chk{position:absolute;opacity:0;pointer-events:none;width:0;height:0;}
+
+/* ---------- Main ---------- */
+.main{flex:1;padding:48px 56px;max-width:880px;min-width:0;position:relative;}
+
+/* ---------- Barra de ferramentas (topo, lado direito) ----------
+   Os botões de acessibilidade/dark/idioma/fonte ficam fixos no canto
+   superior direito da área de conteúdo (não na sidebar). Alinhado e
+   discreto; em mobile vira bloco de linha ao topo. */
+.top-tools{position:fixed;top:16px;right:24px;z-index:95;
+  display:flex;justify-content:flex-end;}
+.top-tools .tools{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;
+  background:var(--tool-bg);padding:6px;border-radius:12px;
+  border:1px solid var(--border);box-shadow:0 4px 16px rgba(0,0,0,.15);}
+
+/* ---------- Back to top ---------- */
+#df-top{position:fixed;right:24px;bottom:24px;width:46px;height:46px;border-radius:50%;
+  background:var(--accent);color:#fff;border:none;font-size:1.3rem;cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,.25);z-index:60;}
+/* Botão compartilhar (M7): fixo, acima do "voltar ao topo" */
+.df-share{position:fixed;right:24px;bottom:76px;width:42px;height:42px;border-radius:50%;
+  background:var(--accent2);color:#fff;border:none;font-size:1.2rem;cursor:pointer;
+  box-shadow:0 4px 12px rgba(0,0,0,.25);z-index:60;line-height:1;}
+.df-share:hover{filter:brightness(1.1);}
+
+/* ---------- Typography ---------- */
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.7;color:var(--fg);background:var(--bg);
+  transition:background .2s,color .2s;overflow-x:hidden;text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;}
+h1{font-size:2rem;font-weight:760;color:var(--fg);margin:0 0 14px;
+  border-bottom:2px solid var(--accent);padding-bottom:14px;letter-spacing:-0.02em;line-height:1.2;}
+h2{font-size:1.45rem;font-weight:660;color:var(--fg);margin:34px 0 12px;padding-top:10px;
+  border-bottom:1px solid var(--border);letter-spacing:-0.01em;line-height:1.3;}
+h2::before{content:'';display:none;}
+h3{font-size:1.18rem;font-weight:640;color:var(--accent2);margin:26px 0 8px;}
+h4{font-size:1rem;font-weight:600;color:var(--fg);margin:18px 0 6px;}
+p{margin:10px 0;}
+ul,ol{margin:10px 0 10px 26px;padding-left:4px;}
+li{margin:5px 0;}
+a{color:var(--accent);word-break:break-word;}
+strong{font-weight:650;}
+em{font-style:italic;}
+
+/* code + pre */
+code{background:var(--code-bg);padding:2px 6px;border-radius:4px;font-size:.85em;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:inherit;}
+pre{background:var(--pre-bg);color:var(--pre-fg);padding:18px;border-radius:10px;
+  overflow-x:auto;margin:16px 0;font-size:.82rem;line-height:1.55;max-width:100%;
+  border-top:3px solid var(--accent);box-shadow:0 4px 20px rgba(0,0,0,.12);}
+pre code{background:none;color:inherit;padding:0;}
+.df-copy{position:absolute;top:8px;right:8px;font-size:.7rem;padding:4px 8px;border:1px solid #475569;
+  background:#1e293b;color:#cbd5e1;border-radius:5px;cursor:pointer;font-family:inherit;}
+.df-copy:hover{background:#334155;color:#fff;}
+/* Highlight de sintaxe leve (M2): cores por token, aplicadas via JS.
+   Usa cores do design system (esmeralda/âmbar) e neutros altos contraste. */
+.hl-kw{color:#c792ea;font-weight:600;}        /* keywords (if, def, class...) */
+.hl-str{color:#a5d6a5;}                       /* strings */
+.hl-num{color:#f78c6c;}                       /* números */
+.hl-cmt{color:#7f8c9b;font-style:italic;}     /* comentários */
+.hl-fn{color:#82aaff;}                        /* nomes de função */
+.hl-tag{color:#f07178;}                       /* tags HTML */
+.hl-attr{color:#ffcb6b;}                      /* atributos HTML */
+.df-hc .hl-kw{color:#ff0 !important;} .df-hc .hl-str{color:#0ff !important;}
+.df-hc .hl-num{color:#fa0 !important;} .df-hc .hl-cmt{color:#aaa !important;}
+.df-hc .hl-fn{color:#0ff !important;} .df-hc .hl-tag{color:#ff0 !important;}
+.df-hc .hl-attr{color:#fa0 !important;}
+
+/* blockquote (notas) — com barra de acento + tom distinto */
+blockquote{border-left:4px solid var(--note-border);background:var(--note-bg);
+  padding:14px 18px;border-radius:0 10px 10px 0;margin:16px 0;color:var(--fg);
+  border-left-width:4px;}
+
+/* tables (rolagem horizontal no mobile) */
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0;border-radius:10px;
+  box-shadow:0 2px 12px rgba(0,0,0,.05);}
+table{border-collapse:collapse;width:100%;font-size:.86rem;min-width:0;}
+th,td{border:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top;}
+th{background:var(--code-bg);font-weight:650;color:var(--accent2);border-bottom:2px solid var(--accent);}
+tr:nth-child(even){background:rgba(0,0,0,.02);}
+[data-theme="dark"] tr:nth-child(even){background:rgba(255,255,255,.03);}
+
+hr{border:none;border-top:1px solid var(--border);margin:24px 0;}
+
+/* section / doc title */
+.section{scroll-margin-top:20px;margin-bottom:56px;}
+.doc-title{font-size:.75rem;color:var(--muted);text-transform:uppercase;
+  letter-spacing:.06em;margin:0 0 4px;}
+
+/* Âncora de seção (M6): link "§" flutuante à direita do heading.
+   Aparece suave no hover; copia o link exato da seção. */
+.df-anchor{color:var(--muted);text-decoration:none;font-weight:400;font-size:.8em;
+  opacity:.35;transition:opacity .2s;margin-left:8px;}
+.df-anchor:hover{opacity:1;color:var(--accent);}
+
+/* TOC recolhível (M6): sumário da página em <details>, minimizado por padrão.
+   M13: sticky — quando aberto, fica fixo no topo ao rolar em docs longas. */
+.df-toc{margin:8px 0 24px;background:var(--code-bg);border:1px solid var(--border);
+  border-radius:10px;padding:0 16px;
+  position:sticky;top:76px;z-index:20;max-height:60vh;overflow:auto;
+  box-shadow:0 4px 20px rgba(0,0,0,.06);}
+.df-toc summary{cursor:pointer;font-weight:600;color:var(--fg);
+  padding:12px 0;user-select:none;position:sticky;top:0;background:var(--code-bg);z-index:1;}
+.df-toc summary:hover{color:var(--accent);}
+.df-toc-body{padding:0 0 12px;line-height:1.9;}
+.df-toc-body a{color:var(--accent);text-decoration:none;font-size:.9rem;}
+.df-toc-body a:hover{text-decoration:underline;}
+
+/* ---------- Prev/Next (como cartões de navegação) ---------- */
+.pn{display:flex;justify-content:space-between;gap:14px;margin-top:32px;padding-top:20px;
+  border-top:1px solid var(--border);flex-wrap:wrap;}
+.navpn{font-size:.85rem;color:var(--accent2);text-decoration:none;padding:12px 18px;
+  border:1px solid var(--border);border-radius:12px;background:var(--code-bg);
+  transition:border-color .2s,transform .2s,box-shadow .2s;font-weight:600;}
+.navpn:hover{border-color:var(--accent);transform:translateY(-2px);
+  box-shadow:0 6px 18px rgba(13,148,136,.12);color:var(--accent);}
+
+/* ============================================================
+   DESKTOP — hambúrguer p/ recolher (colapsar) a sidebar
+   Botão compacto no canto + nome da marca AO LADO (mesma linha),
+   evitando sobrepor o nome da framework.
+   ============================================================ */
+@media (min-width:761px){
+  /* Botão ☰: quadrado compacto, fixo no canto da sidebar.
+       Top: 7px = centro do botão (7+22=29) alinha com centro do nome (14+15.5=29.5).
+       O nome da marca fica à direita dele (brand-top ganha padding à esquerda). */
+    .menu-toggle{display:flex;position:fixed;top:7px;left:14px;z-index:90;
+      width:44px;height:44px;border-radius:10px;align-items:center;justify-content:center;
+      background:var(--sidebar-bg);color:#fff;cursor:pointer;font-size:1.35rem;
+      line-height:1;box-shadow:0 2px 10px rgba(0,0,0,.35);border:1px solid #374151;
+      transition:background .2s;}
+  .menu-toggle::before{content:'\2630';display:inline-flex;align-items:center;justify-content:center;line-height:1;}
+  .menu-toggle::after{display:none;}
+  .menu-toggle:hover{background:var(--tool-bg);}
+  /* quando recolhido vira ✕ */
+  #menu-chk:checked ~ .menu-toggle::before{content:'\2715';}
+
+  /* Nome da marca ao lado do botão (não por baixo → sem sobreposição).
+     Usamos padding-left na SIDEBAR (em vez de margin nos filhos) para que a
+     busca (#df-search com width:100%) e o nav NÃO estourem a largura. */
+  .sidebar{padding:14px 16px 16px 58px;}
+  .brand-top{padding-left:0;}
+  .brand-sub,#df-search,.sidebar nav{margin-left:0;}
+
+  /* Recolhe a sidebar → o CONTEÚDO ocupa 100% da tela (como no mobile):
+     sem max-width residual, e padding à esquerda para NÃO colidir com o botão ☰ fixo. */
+  #menu-chk:checked ~ .wrap .sidebar{display:none;}
+  #menu-chk:checked ~ .wrap .main{flex:1 1 100%;max-width:100%;width:100%;
+    padding:48px 40px 48px 80px;}
+}
+
+/* ============================================================
+   RESPONSIVO (MOBILE) — menu hambúrguer (drawer overlay)
+   ============================================================ */
+@media (max-width:760px){
+  /* Barra fixa no topo: botão hambúrguer = label do checkbox.
+     z-index ACIMA do backdrop (65) e da sidebar (70) p/ sempre clicável (fechar). */
+  .menu-toggle{display:flex;position:fixed;top:0;left:0;right:0;z-index:90;
+    background:var(--sidebar-bg);color:#fff;padding:14px 18px;cursor:pointer;
+    font-size:1rem;font-weight:700;align-items:center;gap:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,.3);}
+  .menu-toggle::before{content:'\2630';font-size:1.2rem;line-height:1;display:inline-block;}
+  .menu-toggle::after{content:'Menu';}
+  /* quando aberto, vira X */
+  #menu-chk:checked ~ .menu-toggle::before{content:'\2715';font-weight:700;}
+  #menu-chk:checked ~ .menu-toggle::after{display:none;}
+
+  /* Sidebar = drawer overlay que desliza da esquerda */
+  .sidebar{position:fixed;top:0;left:0;bottom:0;width:280px;z-index:70;
+    background:var(--sidebar-bg);padding:70px 16px 16px;height:100vh;overflow-y:auto;
+    transform:translateX(-100%);transition:transform .25s ease;}
+  #menu-chk:checked ~ .wrap .sidebar{transform:translateX(0);display:block;}
+
+  /* backdrop escuro atrás do drawer.
+     Nota compat: usa top/right/bottom/left (não `inset`) p/ Chrome <87 / Edge legado. */
+  #menu-chk:checked ~ .wrap::before{content:'';position:fixed;top:0;right:0;bottom:0;left:0;z-index:65;
+    background:rgba(0,0,0,.5);}
+
+  #menu-chk{position:absolute;opacity:0;pointer-events:none;}
+
+  .main{padding:70px 16px 20px;}
+  h1{font-size:1.5rem;} h2{font-size:1.2rem;} h3{font-size:1.05rem;}
+  /* toolbar: esconde no mobile (os controles ainda acesíveis na doc sem
+     ocupar espaço; o menu hambúrguer fica no topo) */
+  .top-tools{display:none;}
+}
+
+/* ============================================================
+   PRINT (gera um PDF bom via Ctrl+P / Salvar como PDF)
+   Oculta sidebar, botões e dark mode; texto preto sobre branco.
+   ============================================================ */
+@media print{
+  body{background:#fff !important;color:#000 !important;font-size:12px;}
+  .sidebar,.menu-toggle,#df-top,#df-dark,.df-copy,.df-share,.top-tools{display:none !important;}
+  .main{max-width:100%;padding:0;}
+  a{color:#000;text-decoration:none;}
+  pre,blockquote,table{border-color:#ccc !important;background:#fafafa !important;page-break-inside:avoid;}
+  h1,h2,h3,h4{page-break-after:avoid;}
+  .section{page-break-inside:auto;}
+  .pn{display:none;}
+}
