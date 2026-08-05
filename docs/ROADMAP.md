@@ -57,17 +57,20 @@ Evolução do framework. **Prioridade: 🔴 alta · 🟡 média · 🟢 baixa.**
 - [x] **Página de "Acessibilidade"** na doc do framework (declarar conformidade WCAG e recursos nativos) [a11y]
 - [x] Opção de **tamanho de fonte** e **alto contraste** no topo (recurso WAI) [a11y]
 
-## 🟡 Média (futuro)
+## 🟡 Média (concluído — v0.3)
 
-- [ ] **`prefers-contrast` automático** (alto contraste via media query do SO, sem botão)
-- [ ] **Busca com snippet/destaque** do trecho que casou
-- [ ] **Imagens responsivas** (lazy-load / width no Markdown)
-- [ ] **Tema claro na landing por config** (hoje landing é escura por padrão)
+- [x] **`prefers-contrast` automático** (alto contraste via media query do SO, sem botão)
+- [x] **Busca com snippet/destaque** do trecho que casou
+- [x] **Tema claro na landing por config** (`theme:"light"` → nasce clara)
+- [x] **CLI**: `mimepy build`, `mimepy init <projeto>` (cria pasta + config + docs)
+- [x] **Ícones na sidebar** (emojis viram badges `.side-ic`)
+- [x] **Testes pytest** (`tests/`) — build + security + temas
 
 ## 🟢 Baixa / publicidade
 
-- [ ] **CLI**: `mimepy build`, `mimepy init <projeto>` (cria pasta + config + docs)
-- [ ] **GitHub Actions** que roda `build.py` e publica no GitHub Pages
+- [x] **GitHub Actions** que roda `build.py` e publica no GitHub Pages
+- [x] **Changelog** (`CHANGELOG.md`) + gerador `scripts/gen_changelog.py`
+- [ ] **Imagens responsivas** (lazy-load / width no Markdown)
 - [ ] **Exportação DTCG/Tailwind** do `DESIGN.md` (`tokens.json`/`theme.css`)
 - [ ] **Multi-versão de docs** (`/v1/`, `/v2/`) via `out_dir` por versão
 - [ ] **Site/changelog** público em GitHub Pages

@@ -57,6 +57,21 @@ a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visibl
 .df-hc a,.df-hc .navpn{color:#0ff !important;text-decoration:underline !important;}
 .df-hc th{background:#222 !important;color:#ff0 !important;}
 .df-hc tr:nth-child(even){background:#111 !important;}
+
+/* Modo ALTO CONTRASTE AUTOMÁTICO (N5): aciona o mesmo estilo quando o sistema
+   operacional do usuário já pede alto contraste (prefers-contrast: more) —
+   sem precisar do botão. Cobre usuários que configuram no SO. */
+@media (prefers-contrast: more){
+  body{background:#000 !important;color:#ff0 !important;}
+  .sidebar,.footer{background:#000 !important;color:#ff0 !important;}
+  .sidebar nav a.df-active{background:#333 !important;color:#ff0 !important;}
+  .main h1,.main h2,.main h3{color:#ff0 !important;}
+  code,pre,blockquote,table{background:#000 !important;color:#ff0 !important;
+    border-color:#ff0 !important;}
+  a,.navpn{color:#0ff !important;text-decoration:underline !important;}
+  th{background:#222 !important;color:#ff0 !important;}
+  tr:nth-child(even){background:#111 !important;}
+}
 .wrap{display:flex;min-height:100vh;}
 
 /* ---------- Sidebar ---------- */
@@ -90,6 +105,21 @@ a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visibl
    Melhora navegação por teclado/leitor de tela (WCAG 2.4.1). */
 .sidebar nav a.df-active{background:rgba(13,148,136,.22);color:#5eead4;font-weight:600;
   border-left-color:#2dd4bf;}
+/* Ícone de emoji nos links da sidebar (N18) */
+.side-ic{display:inline-flex;align-items:center;justify-content:center;width:22px;
+  height:22px;border-radius:6px;background:rgba(45,212,191,.12);margin-right:8px;
+  font-size:.95rem;vertical-align:-4px;}
+/* Grupo de links na sidebar (N19, padrão Mintlify) */
+.nav-group{margin:10px 0 6px;}
+.nav-group .nav-group{margin-top:0;}
+.nav-group::before{content:attr(data-label);display:block;font-size:.68rem;
+  text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin:12px 4px 6px;font-weight:700;}
+/* Snippet de busca (N4): trecho do conteúdo que casou, com termo em destaque */
+.search-snippet{display:block;margin-top:4px;font-size:.72rem;color:#94a3b8;
+  background:rgba(45,212,191,.08);border-left:2px solid #2dd4bf;padding:4px 8px;
+  border-radius:0 6px 6px 0;line-height:1.4;font-style:normal;}
+.search-snippet b{color:#5eead4;font-weight:700;background:rgba(45,212,191,.15);
+  padding:0 2px;border-radius:3px;}
 
 /* Botão menu mobile */
 .menu-toggle{display:none;}
@@ -179,10 +209,15 @@ tr:nth-child(even){background:rgba(0,0,0,.02);}
 
 hr{border:none;border-top:1px solid var(--border);margin:24px 0;}
 
+/* Imagens (N7): fluidas, não estouram o container; lazy-load via JS */
+.main img{max-width:100%;height:auto;border-radius:10px;display:block;}
+
 /* section / doc title */
 .section{scroll-margin-top:20px;margin-bottom:56px;}
 .doc-title{font-size:.75rem;color:var(--muted);text-transform:uppercase;
   letter-spacing:.06em;margin:0 0 4px;}
+/* N22: descrição opcional vinda do frontmatter (description:) */
+.doc-desc{color:var(--accent2);font-weight:600;font-size:1.05rem;margin:0 0 8px;}
 
 /* Âncora de seção (M6): link "§" flutuante à direita do heading.
    Aparece suave no hover; copia o link exato da seção. */
@@ -295,4 +330,8 @@ hr{border:none;border-top:1px solid var(--border);margin:24px 0;}
   h1,h2,h3,h4{page-break-after:avoid;}
   .section{page-break-inside:auto;}
   .pn{display:none;}
+  /* N9: numeração de páginas + margens A4 no rodapé */
+  @page{size:A4;margin:16mm;}
+  @page{@bottom-center{content:counter(page) " / " counter(pages);font-size:9px;color:#666;}}
+  body::after{content:"";}
 }

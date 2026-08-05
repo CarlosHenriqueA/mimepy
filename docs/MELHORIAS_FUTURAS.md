@@ -33,7 +33,7 @@
 ## 🚀 De maior impacto (recomendado avaliar primeiro)
 
 1. **Temas alternativos via DESIGN.md** — além do tema autoral, permitir `theme: "neon" | "paper" | "mono"` que troca apenas os tokens do `DESIGN.md`/CSS variables. Baixo custo (já temos tokens), alto valor de "sabor".
-2. **Exportação DTCG/Tailwind do DESIGN.md** — usar o linter `@google/design.md export` para gerar `tokens.json`/`theme.css` consumíveis em outros projetos. Facilita adoção.
+2. ✅ **Exportação DTCG/Tailwind** — `scripts/export_tokens.py` gera `tokens.json`+`token.css` (N28).
 3. **CLI (`mimepy build/init`)** — `mimepy init <projeto>` cria pasta + config + sidebar a partir de um template; `mimepy build` roda. Democratiza o uso para não-devs.
 4. **Busca com destaque (highlight)** — além de filtrar, mostrar o trecho do conteúdo que casou (snippet). Melhora muito a usabilidade de docs grandes.
 
@@ -41,22 +41,22 @@
 
 5. **`prefers-contrast` (alto contraste automático)** — usar a media query para acionar o modo HC sem botão, em usuários que já pedem no SO.
 6. **Tema escuro em landing** — hoje a landing é sempre escura; permitir landing clara/escura por config.
-7. **Imagens responsivas** — suporte a `width`/lazy-load de imagens no Markdown (melhora performance mobile).
+7. ✅ **Imagens responsivas** — `loading=lazy` + CSS fluido (N7).
 8. **Sticky TOC** em docs longas — o TOC recolhível pode virar sticky ao rolar.
-9. **Print aprimorado** — numeração de páginas e capa em `@media print`.
+9. ✅ **Print aprimorado** — `@page` A4 + numeração de páginas (N9).
 
 ## 🔐 Segurança/a11y
 
-10. **CSP (Content-Security-Policy)** — adicionar meta CSP (script-src, style-src) para endurecer o HTML gerado.
-11. **`rel="noopener"`** em links externos (já é default moderno, mas garantir).
-12. **Testes automáticos (pytest)** — criar `tests/` para build+security, substituindo os scripts ad-hoc.
+10. ✅ **CSP** — meta Content-Security-Policy (N10).
+11. ✅ **`rel=noopener noreferrer`** em links externos (N11).
+12. ✅ **Testes pytest** — `tests/` (N12).
 
 ## 🌍 Mercado/adoção
 
 13. ✅ **Badge de licença/versão** no README e no site (pills inline offline).
 14. ✅ **Templates de exemplo** — 4 landing templates prontos (startup, produto, evento, docs) em `examples/templates/`.
-15. **Changelog automático** — derivado do ROADMAP/SESSION_CHECKPOINT.
-16. **GitHub Actions** — workflow que roda `build.py` e publica no GitHub Pages (1-clique).
+15. ✅ **Changelog** + gerador (N15).
+16. ✅ **GitHub Actions** — CI + Pages (N16).
 
 ---
 
@@ -92,12 +92,12 @@ mantendo a simplicidade:
 ### Novas melhorias priorizadas (etapas de adoção)
 
 17. ✅ **Atalho de teclado `/`** para focar a busca (padrão GitBook/Mintlify) — 1 linha de JS.
-18. **Ícones por emoji + símbolos** nos links da sidebar (visual rico sem assets).
-19. **Sidebar agrupada por seções** (múltiplos grupos no config), como Mintlify.
-20. **Modo "texto simples"** (sem highlight) para renderização determinística/de teste.
-21. **`--watch`** no CLI: rebuild automático ao salvar `.md` (DX de dev).
-22. **Metadados por página** (frontmatter `title`/`description`/`order`) no modo docs.
-23. **Sitemap + 404** para o site GitHub Pages.
+18. ✅ **Ícones por emoji** nos links da sidebar (N18).
+19. ✅ **Sidebar agrupada por seções** (N19).
+20. ✅ **Modo "texto simples"** (N20).
+21. ✅ **`--watch`** no CLI (N21).
+22. ✅ **Metadados por página** (frontmatter) — N22.
+23. ✅ **Sitemap + 404 + robots** p/ Pages (N23).
 
 ### Estratégia recomendada (próximos ciclos)
 - **Maior ROI agora:** 17 (atalho `/`), 18 (ícones), 19 (sidebar agrupada) — custo baixo, apelo alto.

@@ -43,13 +43,13 @@ PROJECT = {
 
     # Sidebar (ordem de renderização)
     "sidebar": [
-        ("README.md", "O que é & como usar"),
-        ("TUTORIAL.md", "Tutorial passo a passo"),
-        ("TECNICO.md", "Documentação técnica"),
-        ("REGRAS_DE_ESTILO.md", "Regras de estilo"),
-        ("SEGURANCA.md", "Segurança"),
-    ("ACESSIBILIDADE.md", "Acessibilidade"),
-    ("ROADMAP.md", "Roadmap & futuras melhorias"),
-    ("MELHORIAS_FUTURAS.md", "Novas melhorias ideadas"),
+        ("README.md", "🚀 O que é & como usar"),
+        ("TUTORIAL.md", "🧭 Tutorial passo a passo"),
+        ("TECNICO.md", "🧑‍💻 Documentação técnica"),
+        ("REGRAS_DE_ESTILO.md", "🎨 Regras de estilo"),
+        ("SEGURANCA.md", "🛡️ Segurança"),
+    ("ACESSIBILIDADE.md", "♿ Acessibilidade"),
+    ("ROADMAP.md", "🗺️ Roadmap & futuras melhorias"),
+    ("MELHORIAS_FUTURAS.md", "✨ Novas melhorias ideadas"),
     ],
 }

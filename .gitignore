@@ -40,3 +40,6 @@ Thumbs.db
 
 # ---------- Mobile / outros ----------
 node_modules/
+
+# pytest
+.pytest_cache/

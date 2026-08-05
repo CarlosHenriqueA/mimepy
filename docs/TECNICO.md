@@ -48,6 +48,9 @@ HTML** (CSS+JS embutidos) — por isso é offline e portátil.
 
 ## 3. `src/build.py` — funções (API interna)
 
+> **CLI** (`src/cli.py`) também existe: `mimepy init <nome>` / `mimepy build`.
+> Ver §9.
+
 ### `load_config(config_path) -> dict`
 Carrega o `PROJECT` de um arquivo de config via `importlib` (executa o .py).
 > ⚠️ **Segurança:** o config é executado como Python. Só carregue configs **de
@@ -60,9 +63,10 @@ Remove vetores XSS de HTML **bruto** vindo do Markdown (usado só se
 - atributos `on*` (`onclick`, `onerror`, `onload`...)
 - prefixos perigosos em href/src (`javascript:`, `data:`)
 
-### `render_md(path, extensions) -> str`
-Converte um `.md` em HTML com `python-markdown`:
-- remove frontmatter YAML (`---...---`)
+### `render_md(path, extensions) -> (html, meta)`
+Converte um `.md` em HTML com `python-markdown`, retornando **também** os
+metadados do frontmatter (N22):
+- remove/extrai bloco YAML `--- title/description/order ---` → dict `meta`
 - **corrige tabelas**: insere linha em branco antes do separador quando
   necessário (regex robusto — melhor fidelidade ao Markdown)
 - usa as extensões do config (`tables`, `fenced_code`, `sane_lists`,
@@ -93,6 +97,19 @@ Monta a **landing page** (mode landing) a partir de UM `.md`:
 - listas `- **Título**: desc` → viram cards (recuso M5)
 - bloco ` ```form ` → formulário de contato (mailto, offline)
 - injeta tema (dark/light) + botão de tema na navbar
+
+### `build_blog(cfg, base_dir)`
+Monta um **blog** (mode blog) a partir de uma pasta de `.md` (padrão Docusaurus):
+- cada `.md` é um post; `frontmatter` (title/description/date) alimenta o card
+- ordena por `date` (mais recente primeiro); cada post abre por âncora
+- mantém offline/1-arquivo
+
+### Modos disponíveis (`cfg["mode"]`)
+- `docs` (padrão) · `landing` · `blog`
+- **Sidebar agrupada** (N19): no mode docs, a `sidebar` pode ser
+  `[("Grupo", [(arquivo,titulo), ...]), ...]` em vez de lista plana.
+- **Modo "texto simples"** (N20): `features:{"highlight":false}` desliga o
+  colorização de código (render determinístico, sem spans).
 
 ---
 
@@ -128,7 +145,8 @@ Monta a **landing page** (mode landing) a partir de UM `.md`:
 ## 5. Recursos do JS (`APP_JS`) — por seção
 
 O JS das docs é um único `IIFE` com seções numeradas e comentadas:
-1. **Busca** — filtra nav por título **e** conteúdo das seções (M4)
+1. **Busca** — filtra nav por título **e** conteúdo das seções (M4) + **snippet** com
+   o trecho que casou em destaque (N4)
 1b. **Atalho `/`** — foca a busca (M14)
 2. **Dark mode** — alterna `data-theme`, salva em `localStorage` (cicla em neon)
 3. **Copiar código** — botão em cada `<pre>` (fallback `execCommand`)
@@ -137,7 +155,8 @@ O JS das docs é um único `IIFE` com seções numeradas e comentadas:
 6. **Tamanho de fonte** (A/A+/A++) · 6b **Alto contraste** (◐)
 6c. **Idioma** (🌐 pt/en)
 7. **Highlight de sintaxe** — tokenizador em 1 passada, sem lib (M2)
-8. **Âncoras §** + **TOC recolhível** (M6) + **TOC **sticky** (M13)
+7b. **`rel=noopener noreferrer`** em links externos (N11)
+8. **Âncoras §** + **TOC recolhível** (M6) + **TOC sticky** (M13)
 
 > Detalhe de segurança: o highlight escapa `& < >` antes de injetar em
 > `innerHTML` (evita XSS de código não confiável).
@@ -184,3 +203,36 @@ Adicione a transformação no loop de `build_landing` (após o `_cardize`).
 - **Offline**: sem CDN — badges externos só no README (não no HTML gerado).
 - **Design system autoral** (esmeralda/teal + âmbar) — anti "vibe coding".
 - **A11y WCAG 2.2 AA de fábrica** — skip-link, focus-visible, reduced-motion.
+
+---
+
+## 9. CLI (`src/cli.py`), Testes e CI
+
+### CLI
+`python src/cli.py build [config.py]` — gera HTML.
+`python src/cli.py init <nome> [-d DIR] [--template docs|landing]` — cria projeto novo
+a partir de modelo (config + `docs/` ou `LANDING.md`). Democratiza para não-devs.
+
+### Testes
+Suíte `tests/` (pytest): build docs/landing, sanitize/XSS, temas, `_cardize`,
+`_side_label`, CSP e noopener presentes.
+```bash
+python -m pytest -q
+```
+
+### CI (GitHub Actions)
+`.github/workflows/ci.yml`:
+- `test`: instala `markdown pytest` → roda pytest → gera builds.
+- `build-pages` (branch `main`): gera a landing `site/` e publica no **GitHub Pages**.
+
+---
+
+## 10. Endurecimento (CSP / prefers-contrast / noopener)
+
+- **CSP**: o HTML gerado inclui meta `Content-Security-Policy`
+  (`default-src 'self'; script-src 'self' 'unsafe-inline'; style-src ...; img-src 'self' data: ...`).
+  Como o JS/CSS são inline, `'unsafe-inline'` é necessário; ainda assim bloqueia
+  recursos de origem externa (reforça o offline).
+- **prefers-contrast**: modo alto contraste automático via `@media (prefers-contrast: more)`.
+- **noopener**: todo link externo ganha `rel="noopener noreferrer"` (anti-tabnabbing).
+

@@ -25,9 +25,10 @@ PROJECT = {
     # ---- Modo ----
     # "mode": "landing",   # descomente para gerar landing page
 
-    # ---- Tema (M8) ----
-    # "theme": "neon",     # "light" (padrão) | "dark" | "neon". Se "dark"/"neon",
-    #                      # segue preferência do sistema/usuário; neon cicla no botão 🌙.
+    # ---- Tema (M8/N6) ----
+    # "theme": "neon",     # "light" (padrão) | "dark" | "neon" | "paper" | "mono".
+    #                      # N6: no modo landing, "theme":"light" faz a landing nascer clara
+    #                      # (botão 🌙 alterna p/ escuro); padrão é escura.
 
     # ---- Cabeçalho / textos ----
     "page_title": "📚 Documentação — MeuProjeto",

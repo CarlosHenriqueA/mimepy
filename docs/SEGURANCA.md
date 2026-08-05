@@ -93,6 +93,18 @@ O `.gitignore` já protege:
 
 ---
 
+## 4c. Endurecimento (defesa em profundidade — v0.3)
+
+Além do básico, o HTML gerado agora inclui:
+
+- **CSP (Content-Security-Policy)** — `meta` no head limita `default-src 'self'`;
+  `script-src`/`style-src` permitem inline (necessário p/ o JS/CSS do framework),
+  mas **bloqueiam recursos de origem externa** (reforça o offline e reduz exfiltração).
+- **`rel="noopener noreferrer"`** — aplicado automaticamente a todo link externo
+  (evita *tabnabbing* e vazamento de referrer).
+- **prefers-contrast automático** — o modo alto contraste liga sozinho para
+  usuários que já pedem no SO (`@media (prefers-contrast: more)`), além do botão.
+
 ## Checklist rápido (antes de publicar uma doc)
 
 1. [ ] Ative `sanitize: true` se o Markdown não for 100% seu.

@@ -64,8 +64,19 @@ def render_md(path, extensions):
     import markdown
     with open(path, encoding="utf-8") as f:
         md = f.read()
-    # strip yaml/frontmatter
-    md = re.sub(r"^---\n.*?\n---\n", "", md, flags=re.S)
+
+    # ---- N22: extrai metadados do frontmatter YAML (title/description/order).
+    # Ex.:  ---\n title: Instalação\n description: passo a passo\n order: 2\n ---
+    # São consumidos pelo modo docs (título/descrição da seção, ordenação).
+    meta = {}
+    fm = re.match(r"^---\s*\n(.*?)\n---\s*\n", md, flags=re.S)
+    if fm:
+        for line in fm.group(1).splitlines():
+            if ":" in line:
+                k, v = line.split(":", 1)
+                meta[k.strip().lower()] = v.strip().strip('"').strip("'")
+        md = md[fm.end():]                 # remove o bloco de frontmatter do corpo
+
     # robust tables: garante linha em branco antes do separador de tabela
     # SOMENTE quando uma linha separador (|---|) vem logo após um PARÁGRAFO
     # SOLTO (linha sem "|"), e não logo após outro header de tabela.
@@ -74,11 +85,12 @@ def render_md(path, extensions):
         lambda m: m.group("prev") + "\n\n" + m.group("sep"),
         md,
     )
-    return markdown.markdown(
+    html = markdown.markdown(
         md,
         extensions=extensions or ["tables", "fenced_code", "sane_lists",
                                   "md_in_html", "attr_list", "def_list"],
     )
+    return html, meta
 
 # ---------------------------------------------------------------- JS (inline, offline)
 APP_JS = r"""
@@ -91,8 +103,9 @@ APP_JS = r"""
   if (q){
     var links = Array.prototype.slice.call(document.querySelectorAll('.sidebar nav a'));
     var secs = Array.prototype.slice.call(document.querySelectorAll('.section'));
-    // pré-indexa o texto de cada seção (uma vez, p/ performance)
+    // pré-indexa texto (lowercase p/ busca) e original (p/ snippet) de cada seção
     var secText = secs.map(function(s){ return (s.textContent||'').toLowerCase(); });
+    var secOrig = secs.map(function(s){ return (s.textContent||''); });
     q.addEventListener('input', function(){
       var v = q.value.trim().toLowerCase();
       links.forEach(function(a, i){
@@ -100,6 +113,24 @@ APP_JS = r"""
         var inBody = (i < secText.length) && secText[i].indexOf(v) !== -1;
         var ok = v === '' || inTitle || inBody;
         a.style.display = ok ? '' : 'none';
+        // N4: snippet — mostra o trecho do corpo que casou (com destaque)
+        if (ok && v !== '' && inBody && !inTitle && i < secOrig.length){
+          var pos = secText[i].indexOf(v);
+          var start = Math.max(0, pos - 40);
+          var snip = secOrig[i].slice(start, pos + v.length + 60).replace(/\s+/g,' ').trim();
+          // destaca o termo (escape simples, sem regex complexa)
+          var low = snip.toLowerCase();
+          var k = low.indexOf(v);
+          var part = (start>0?'…':'') + snip.slice(0,k) + '<b>' + snip.slice(k,k+v.length) + '</b>' + snip.slice(k+v.length) + '…';
+          var old = a.querySelector('.search-snippet');
+          if (old) old.remove();
+          var sn = document.createElement('span');
+          sn.className = 'search-snippet'; sn.innerHTML = part;
+          a.appendChild(sn);
+        } else {
+          var old2 = a.querySelector('.search-snippet');
+          if (old2) old2.remove();
+        }
       });
     });
     // 1b. Atalho de teclado '/' (M14) — foca a busca (padrão GitBook/Mintlify).
@@ -269,7 +300,22 @@ APP_JS = r"""
       c.setAttribute('data-hl', '1');
     });
   }
-  highlightBlocks();
+  // N20: modo "texto simples" — se o config desligou o highlight (features.highlight=false),
+  // não tokeniza o código (renderização determinística, sem spans).
+  var NO_HL = document.documentElement.getAttribute('data-nohighlight') === '1';
+  if (!NO_HL) highlightBlocks();
+  if (NO_HL) return;
+
+  // 7b. Segurança de links (N11): todo link externo (http) ganha
+  //     rel="noopener noreferrer" (evita tabnabbing/referrer vazado).
+  Array.prototype.forEach.call(document.querySelectorAll('a[href^="http"]'), function(a){
+    a.setAttribute('rel', 'noopener noreferrer');
+  });
+
+  // 7c. Imagens responsivas (N7): loading=lazy + dimensões fluidas.
+  Array.prototype.forEach.call(document.querySelectorAll('.main img'), function(im){
+    if (!im.hasAttribute('loading')) im.setAttribute('loading', 'lazy');
+  });
 
   // 8. Âncoras com botão de cópia (M6): cada h2/h3 da doc ganha um link
   //    "§" que copia a âncora (URL#id) — compartilhar link exato da seção.
@@ -391,6 +437,21 @@ def get_theme_css(cfg):
         default_theme = "light"
     return "\n".join(extra), default_theme
 
+def _side_label(title):
+    """Título de link da sidebar com ícone (N18): se o texto começa com um
+    emoji/símbolo, separa-o num .side-ic (badge pequeno). Ex.:
+    '🚀 Início' -> '<span class="side-ic">🚀</span> Início'.
+    Sem emoji: só escapa o título."""
+    t = title.strip()
+    partes = t.split(None, 1)
+    if partes:
+        ic = partes[0]
+        if not re.search(r'[\w]', ic, re.UNICODE) and len(ic) <= 6:
+            resto = partes[1].strip() if len(partes) > 1 else ""
+            return ('<span class="side-ic" aria-hidden="true">%s</span> %s' % (ic, _html.escape(resto))).strip()
+    return _html.escape(t)
+
+
 def build(cfg, base_dir):
     docs_dir = (base_dir / cfg["docs_dir"]).resolve()
     css = (HERE / "assets" / "style.css").read_text(encoding="utf-8")
@@ -399,9 +460,21 @@ def build(cfg, base_dir):
     # recursos (features) — defaults ON para provar; configs antigos seguem com os novos
     feat = cfg.get("features", {})
     F = {k: feat.get(k, True) for k in ["search", "dark", "prev_next",
-                                        "copy", "back_top", "print", "share", "lang"]}
+                                        "copy", "back_top", "print", "share", "lang", "highlight"]}
 
-    entries = [e for e in cfg["sidebar"] if (docs_dir / e[0]).exists()]
+    # Sidebar: suporta lista PLANA [(arquivo,titulo),...] ou AGRUPADA
+    # [("Grupo", [(arquivo,titulo),...]), ...] (N19, padrão Mintlify).
+    def _flatten(sidebar):
+        out = []
+        for it in sidebar:
+            if isinstance(it, (list, tuple)) and len(it) == 2 and isinstance(it[1], (list, tuple)):
+                out.extend(it[1])          # grupo: ("Nome", [ (f,t), ... ])
+            else:
+                out.append(it)
+        return out
+
+    flat_sidebar = _flatten(cfg["sidebar"])
+    entries = [e for e in flat_sidebar if (docs_dir / e[0]).exists()]
     sections, all_titles = [], []
     nav = ""   # nav é STRING (concatenação de <a>); lista faria concatenar char a char
     for i, (fname, title) in enumerate(entries):
@@ -419,14 +492,42 @@ def build(cfg, base_dir):
         navrow = ""
         if F["prev_next"] and (prev_link or next_link):
             navrow = f'<div class="pn">{prev_link}{next_link}</div>'
-        body = render_md(docs_dir / fname, ext)
+        body, meta = render_md(docs_dir / fname, ext)   # N22: body + frontmatter meta
         if cfg.get("sanitize"):          # SEGURANÇA: sanitiza HTML bruto (XSS)
             body = sanitize_html(body)
+        # N22: o frontmatter pode sobrepor o título da seção/descrição.
+        sec_title = meta.get("title") or title
+        sec_desc = meta.get("description", "")
+        desc_html = f'<p class="doc-desc">{_html.escape(sec_desc)}</p>' if sec_desc else ""
         sections.append(
             f'<section class="section" id="{anchor}">'
-            f'<p class="doc-title">{_html.escape(fname)}</p>{body}{navrow}</section>'
+            f'<p class="doc-title">{_html.escape(fname)}</p>{desc_html}{body}{navrow}</section>'
         )
-        nav += (f'<a href="#{anchor}">{_html.escape(title)}</a>')
+        nav += (f'<a href="#{anchor}">{_side_label(sec_title)}</a>')
+
+    # Se a sidebar é AGRUPADA, embrulha os links em grupos (N19).
+    # Detectamos se algum item de topo é um grupo (2º elemento é lista).
+    def _is_grouped(sidebar):
+        return any(isinstance(it, (list, tuple)) and len(it) == 2
+                   and isinstance(it[1], (list, tuple)) for it in sidebar)
+
+    if _is_grouped(cfg["sidebar"]):
+        grouped_nav = ""
+        for it in cfg["sidebar"]:
+            if isinstance(it, (list, tuple)) and len(it) == 2 and isinstance(it[1], (list, tuple)):
+                gname = _html.escape(str(it[0]))
+                glinks = ""
+                for (gf, gt) in it[1]:
+                    if (docs_dir / gf).exists():
+                        ga = _html.escape(gf.replace(".md", ""))
+                        glinks += f'<a href="#{ga}">{_side_label(gt)}</a>'
+                if glinks:
+                    grouped_nav += f'<div class="nav-group" data-label="{gname}">{glinks}</div>'
+            else:
+                # item solto no topo (já incluso no nav plano)
+                pass
+        # as seções prev/next usam entries; nav agrupado substitui o plano
+        nav = grouped_nav
 
     n = len(entries)
     # Compartilhar: botão no topo que copia o link da página (M7).
@@ -463,12 +564,16 @@ def build(cfg, base_dir):
         "document.documentElement.setAttribute('data-theme',t);}catch(e){}})();" % default_theme
     )
 
+    html_attrs = ''
+    if (cfg.get("theme") or "").lower() == "neon": html_attrs += ' data-neon="1"'
+    if not F.get("highlight", True): html_attrs += ' data-nohighlight="1"'   # N20
     doc = f"""<!DOCTYPE html>
-<html lang="{cfg.get('lang','pt-BR')}" data-theme="light"{' data-neon="1"' if (cfg.get("theme") or "").lower()=="neon" else ""}>
+<html lang="{cfg.get('lang','pt-BR')}" data-theme="light"{html_attrs}>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="{meta_desc}">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'">
 <title>{_html.escape(cfg['page_title'])}</title>
 <script>{theme_script}</script>
 <style>{css}{theme_css}</style>
@@ -934,12 +1039,14 @@ def build_landing(cfg, base_dir):
         "</script>"
     ) if theme_btn else ""
 
+    _hl = not cfg.get("features", {}).get("highlight", True)  # N20 landing
     doc = f"""<!DOCTYPE html>
-<html lang="{cfg.get('lang','pt-BR')}"{' data-neon="1"' if (cfg.get("theme") or "").lower()=="neon" else ""}>
+<html lang="{cfg.get('lang','pt-BR')}"{' data-neon="1"' if (cfg.get("theme") or "").lower()=="neon" else ""}{' data-nohighlight="1"' if _hl else ''}>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="{meta_desc}">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'">
 <title>{_html.escape(cfg['page_title'])}</title>
 <script>{theme_script}</script>
 <style>{css}{LANDING_CSS}{theme_css}</style>
@@ -981,6 +1088,61 @@ def build_landing(cfg, base_dir):
     print(f"[MimePy {VERSION}] LANDING OK -> {out_file} ({out_file.stat().st_size} bytes)")
     return out_file
 
+def build_blog(cfg, base_dir):
+    """Gera um BLOG (lista de posts) a partir de uma pasta de `.md` (N6/Docusaurus).
+
+    Cada arquivo `.md` em `cfg['blog_dir']` é um post; usamos o frontmatter
+    (N22: `title`, `description`, `date`) para o card da lista e o corpo do
+    markdown para a página. O resultado é um único HTML com a lista de posts
+    (cada post abre via âncora). Mantém offline/1-arquivo."""
+    import markdown
+    bdir = (base_dir / cfg.get("blog_dir", "blog")).resolve()
+    posts = []
+    if bdir.exists():
+        for f in sorted(bdir.glob("*.md")):
+            html, meta = render_md(f, cfg.get("extensions"))
+            title = meta.get("title") or f.stem.replace("_", " ").title()
+            date = meta.get("date", "")
+            posts.append((date, title, meta.get("description", ""), f.stem, html))
+    posts.sort(key=lambda p: p[0], reverse=True)  # mais recente primeiro
+
+    # monta a página: header + lista de posts
+    cards = []
+    for date, title, desc, stem, html in posts:
+        anchor = _html.escape(stem)
+        cards.append(
+            f'<article class="post" id="{anchor}">'
+            f'<h3>{_html.escape(title)}</h3>'
+            f'<p class="post-date">{_html.escape(date)}</p>'
+            f'{"<p>" + _html.escape(desc) + "</p>" if desc else ""}'
+            f'<div class="post-body">{html}</div></article>'
+        )
+    body = "".join(cards) if cards else "<p>Sem posts ainda.</p>"
+
+    css = (HERE / "assets" / "style.css").read_text(encoding="utf-8")
+    meta_desc = _html.escape(cfg.get("meta_description", cfg.get("intro", "")))
+    doc = f"""<!DOCTYPE html>
+<html lang="{cfg.get('lang','pt-BR')}" data-theme="light">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="{meta_desc}">
+<title>{_html.escape(cfg['page_title'])}</title>
+<style>{css}</style></head>
+<body class="main" style="max-width:820px;margin:0 auto;padding:48px 24px;">
+<h1>{_html.escape(cfg['page_title'])}</h1>
+<p style="color:var(--muted)">{_html.escape(cfg.get('intro',''))}</p>
+<hr>{body}
+<footer style="margin-top:40px;padding-top:16px;border-top:1px solid var(--border);
+color:var(--muted);font-size:.8rem;">
+{_html.escape(cfg.get('footer', cfg['name']))} · MimePy {VERSION} · GPL-2.0</footer>
+</body></html>"""
+    out = (base_dir / cfg.get("out_dir", ".")).resolve()
+    out.mkdir(parents=True, exist_ok=True)
+    out_file = out / cfg.get("out_file", "index.html")
+    out_file.write_text(doc, encoding="utf-8")
+    print(f"[MimePy {VERSION}] BLOG OK -> {out_file} ({len(posts)} posts)")
+    return out_file
+
+
 if __name__ == "__main__":
     cfg_path = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else (FRAMEWORK_ROOT / "config.py")
     if not cfg_path.exists():
@@ -988,5 +1150,7 @@ if __name__ == "__main__":
     cfg = load_config(cfg_path)
     if cfg.get("mode") == "landing":
         build_landing(cfg, cfg_path.parent)
+    elif cfg.get("mode") == "blog":
+        build_blog(cfg, cfg_path.parent)
     else:
         build(cfg, cfg_path.parent)
