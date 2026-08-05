@@ -10,15 +10,19 @@
   (`build_type=workflow` → `.github/workflows/ci.yml` roda pytest + publica landing).
 - **Exemplo de blog** criado em `examples/blog/` (config + 3 posts com frontmatter
   `title/date`, ordenados por data). Gerado e validado (3 posts, ordem correta).
-- **Todas as melhorias `MELHORIAS_FUTURAS` implementadas**: N7 imagens responsivas,
-  N9 print A4+numeração, N19 sidebar agrupada, N20 modo "texto simples",
-  N21 CLI `--watch`, N22 frontmatter (`render_md -> (html, meta)`),
-  N23 sitemap/404/robots (`scripts/deploy_pages.py`), N28 export DTCG/Tailwind
-  (`scripts/export_tokens.py`), modo blog (`build_blog`), CSP, noopener,
-  prefers-contrast, ícones na sidebar, testes pytest (12), GH Actions.
-- **Validado**: 12 testes PASS · 6 builds (doc/site/demo/landings/blog) · a11y WCAG AA ·
-  segurança limpa.
-- **Commit + push** para `main` (`794a4f7..19896a9`). **Backup** `MimePy-projeto-2026-08-05_005507.zip`.
+- **Página principal (`site/index.html`) com seção "Explore"** linkando TODAS as
+  páginas do projeto, cada uma no seu lugar (verificado no browser):
+  doc geral (`../index.html`), landing Café Aurora, showcase, demo Solaris Kit,
+  blog, e os 4 templates (startup/produto/evento/docs).
+  Mapas das páginas: `index.html`=doc geral; `site/index.html`=página principal;
+  `examples/*/out/*.html`=exemplos/templates.
+- **Todas as melhorias `MELHORIAS_FUTURAS` implementadas** … (N7 imagem responsiva,
+  N9 print, N19 sidebar agrupada, N20 modo texto, N21 --watch, N22 frontmatter,
+  N23 sitemap/404/robots, N28 export DTCG, modo blog, CSP, noopener, prefers-contrast,
+  ícones na sidebar, 12 testes pytest, GH Actions).
+- **Validado**: 12 testes PASS · 6+ builds · a11y WCAG AA · segurança limpa.
+- **Commits + push** no `main` (último: `e1b765d` s/ links do site). CI verde no push
+  anterior; Pages servindo. **Backup** `MimePy-projeto-2026-08-05_005507.zip`.
 
 ## 📌 Onde parar / próximos passos possíveis
 
