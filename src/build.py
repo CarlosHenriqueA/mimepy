@@ -592,7 +592,8 @@ LANDING_CSS = r"""
     -webkit-background-clip:text;background-clip:text;color:transparent;}
 }
 .land .hero .tagline{color:#98a2b3;font-size:1.2rem;max-width:640px;margin:0 auto 16px;
-  line-height:1.6;}
+  line-height:1.6;text-wrap:pretty;}
+.land .hero h1{text-wrap:balance;}
 .land .hero .cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:28px;}
 .land .btn{display:inline-block;padding:14px 30px;border-radius:12px;text-decoration:none;
   font-weight:700;font-size:1rem;transition:transform .2s,box-shadow .2s,background .2s,border-color .2s;}
@@ -616,7 +617,7 @@ LANDING_CSS = r"""
 /* ---------- Seções ---------- */
 .land section{padding:64px 24px;max-width:1080px;margin:0 auto;}
 .land section h2{font-size:2rem;color:#fff;text-align:center;margin:0 0 12px;border:none;
-  letter-spacing:-.02em;line-height:1.25;}
+  letter-spacing:-.02em;line-height:1.25;text-wrap:balance;}
 .land section h2:after{content:'';display:block;width:56px;height:4px;margin:14px auto 0;
   background:linear-gradient(90deg,#2dd4bf,#fbbf24);border-radius:2px;}
 .land section > ul{max-width:720px;margin:20px auto;}

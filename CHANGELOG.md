@@ -6,6 +6,20 @@ Todas as mudanças notáveis do MimePy. Formato baseado em
 > Este arquivo é **complementado** por `docs/ROADMAP.md` (visão completa das
 > melhorias) e pode ser regenerado/aumentado com `scripts/gen_changelog.py`.
 
+## [v0.4] — 2026-10-23
+
+### Adicionado (ciclo de reformulação: motor + segurança + testes)
+- **Motor modular**: `src/build.py` virou orquestrador; lógica extraída para
+  `src/render.py` (Markdown+frontmatter), `src/security.py` (sanitizador),
+  `src/themes.py` (temas). Compat total (nomes públicos preservados).
+- **Sanitizador por parser real** (`html.parser`, stdlib — sem nova dependência):
+  remove `<script>/<style>/<iframe>/<object>/<form>/<input>/<svg>` etc.,
+  atributos `on*`, `javascript:`/`data:`/`vbscript:`/`file:`, `style` com
+  `url(...)`/`@import`. Preserva links seguros, âncoras, tables e código.
+- **45 testes** pytest (era 12): +21 vetores XSS, CLI, temas, modo blog.
+- **Polish de UI** preservando identidade: `text-wrap: pretty/balance` em
+  docs/landing (melhor ritmo tipográfico sem trocar a paleta esmeralda/âmbar).
+
 ## [v0.3] — 2026-08-05
 
 ### Adicionado (ciclo: melhorias M1–M16 + N1–N16)

@@ -11,21 +11,31 @@ manter, estender ou integrar o framework, comece aqui. Complementa o
 
 ## 1. Visão geral da arquitetura
 
+**v0.4 — motor modular.** O `src/build.py` agora é um **orquestrador** que
+importa módulos internos especializados (refactor que mantém total compat:
+
 ```
-Markdown (.md)  ──►  src/build.py (motor)  ──►  HTML autocontido (1 arquivo)
+Markdown (.md)  ──►  src/build.py (orquestrador)  ──►  HTML autocontido
                       │
-                      ├─ render_md()  → converte Markdown em HTML
-                      ├─ build()      → monta a página de DOCS (mode docs)
-                      ├─ build_landing() → monta a LANDING (mode landing)
-                      └─ get_theme_css() → temas (light/dark/neon/paper/mono)
+                      ├─ src/render.py    → Markdown → HTML + frontmatter
+                      ├─ src/security.py  → sanitização HTML (parser real)
+                      ├─ src/themes.py    → temas light/dark/neon/paper/mono
+                      ├─ build()          → monta DOCS (mode docs)
+                      ├─ build_landing()  → monta LANDING (mode landing)
+                      └─ build_blog()     → monta BLOG (mode blog)
 
 src/assets/style.css   → CSS global (docs): variáveis, a11y, responsivo, dark
 src/build.py (APP_JS)  → JS inline (docs): busca, dark, âncoras, TOC, highlight...
 src/build.py (LANDING_CSS) → CSS da landing (navbar, hero, cards, tema claro)
 ```
 
-O motor tem **zero dependências além de `markdown`** e gera um **único arquivo
+O motor tem **zero dependências além de `markdown`** (os módulos internos usam
+só a stdlib — `html.parser` no security, por ex.) e gera um **único arquivo
 HTML** (CSS+JS embutidos) — por isso é offline e portátil.
+
+> **Nomes públicos preservados:** o `build` (módulo) reexporta `render_md`,
+> `get_theme_css`, `THEMES_CSS` e `sanitize_html` dos módulos, para que
+> código/imports existentes continuem funcionando sem alteração.
 
 ---
 

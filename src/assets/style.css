@@ -129,6 +129,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visibl
 
 /* ---------- Main ---------- */
 .main{flex:1;padding:48px 56px;max-width:880px;min-width:0;position:relative;}
+/* Polish tipo (v0.4): mantém identidade, melhora ritmo de leitura */
+.main p{text-wrap:pretty;}
+.main ul, .main ol{line-height:1.75;}
+.main h2{margin-top:40px;}
 
 /* ---------- Barra de ferramentas (topo, lado direito) ----------
    Os botões de acessibilidade/dark/idioma/fonte ficam fixos no canto
