@@ -24,6 +24,14 @@ import html as _html
 import importlib.util
 from pathlib import Path
 
+# Módulos internos (refactor v0.4 — separados para test/limpieza):
+#   - security.py : sanitizador HTML robusto (parser real, stdlib)
+#   - themes.py   : temas CSS (light/dark/neon/paper/mono) + get_theme_css
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from security import sanitize_html            # noqa: E402
+from themes import get_theme_css, THEMES_CSS  # noqa: E402   (reexport para compat)
+from render import render_md                  # noqa: E402   (docs/landing/blog)
+
 # ---------------------------------------------------------------- config
 def load_config(config_path):
     spec = importlib.util.spec_from_file_location("mimepy_cfg", config_path)
@@ -33,64 +41,13 @@ def load_config(config_path):
 
 HERE = Path(__file__).resolve().parent
 FRAMEWORK_ROOT = HERE.parent
-VERSION = "0.2"
+VERSION = "0.4"
 
 # ---------------------------------------------------------------- markdown
-def sanitize_html(html):
-    """Sanitização básica de segurança (opcional, ligada via config `sanitize`).
+def _md_escape(text):
+    """Escapa um texto para uso seguro em HTML (hereditariedade de _html.escape)."""
+    return _html.escape(text, quote=True)
 
-    Remove vetores XSS comuns que o autor de Markdown (possivelmente não
-    confiável, ex.: conteúdo de terceiros comentado) poderia injetar:
-      - tags <script> e <style> (com conteúdo)
-      - atributos on* (onclick, onerror, onload, ...)
-      - URLs javascript:, data: em links
-    PS: MimePy por padrão perm.rel HTML bruto no Markdown (flexibilidade).
-    Ative `sanitize: true` no config quando o Markdown NÃO for 100% confiável.
-    """
-    import re as _re
-    # remove <script ...>...</script> e <style>...</style>
-    html = _re.sub(r"<\s*script\b[^>]*>.*?<\s*/\s*script\s*>", "", html, flags=_re.S | _re.I)
-    html = _re.sub(r"<\s*style\b[^>]*>.*?<\s*/\s*style\s*>", "", html, flags=_re.S | _re.I)
-    html = _re.sub(r"<\s*script\b[^>]*>", "", html, flags=_re.I)
-    # remove atributos on*
-    html = _re.sub(r"\son\w+\s*=\s*(\"[^\"]*\"|'[^']*'|[^\s>]+)", "", html, flags=_re.I)
-    # remove javascript:/data: em href e src
-    html = _re.sub(r'\s(href|src)\s*=\s*(["\'])\s*javascript:[^"\']*\2', "", html, flags=_re.I)
-    html = _re.sub(r'\s(href|src)\s*=\s*(["\'])\s*data:[^"\']*\2', "", html, flags=_re.I)
-    return html
-
-
-def render_md(path, extensions):
-    import markdown
-    with open(path, encoding="utf-8") as f:
-        md = f.read()
-
-    # ---- N22: extrai metadados do frontmatter YAML (title/description/order).
-    # Ex.:  ---\n title: Instalação\n description: passo a passo\n order: 2\n ---
-    # São consumidos pelo modo docs (título/descrição da seção, ordenação).
-    meta = {}
-    fm = re.match(r"^---\s*\n(.*?)\n---\s*\n", md, flags=re.S)
-    if fm:
-        for line in fm.group(1).splitlines():
-            if ":" in line:
-                k, v = line.split(":", 1)
-                meta[k.strip().lower()] = v.strip().strip('"').strip("'")
-        md = md[fm.end():]                 # remove o bloco de frontmatter do corpo
-
-    # robust tables: garante linha em branco antes do separador de tabela
-    # SOMENTE quando uma linha separador (|---|) vem logo após um PARÁGRAFO
-    # SOLTO (linha sem "|"), e não logo após outro header de tabela.
-    md = re.sub(
-        r"(?m)^(?P<prev>[^\n|][^\n]*)\n(?P<sep>\|[^\n]*\|[\s:|:-]*\|\s*)$",
-        lambda m: m.group("prev") + "\n\n" + m.group("sep"),
-        md,
-    )
-    html = markdown.markdown(
-        md,
-        extensions=extensions or ["tables", "fenced_code", "sane_lists",
-                                  "md_in_html", "attr_list", "def_list"],
-    )
-    return html, meta
 
 # ---------------------------------------------------------------- JS (inline, offline)
 APP_JS = r"""
@@ -363,80 +320,7 @@ APP_JS = r"""
 })();
 """
 
-# ---------------------------------------------------------------- build
-# Temas alternativos (M8): cada tema redefine as CSS variables do :root.
-# "light" (padrão), "dark" e "neon" (estilo retrô/fosforescente autoral).
-THEMES_CSS = {
- "dark": """
- [data-theme="dark"]{
-   --bg:#0f172a; --fg:#e2e8f0; --muted:#94a3b8;
-   --accent:#2dd4bf; --accent2:#5eead4; --cta:#fbbf24; --cta-strong:#f59e0b;
-   --border:#1e293b; --code-bg:#1e293b; --note-bg:#134e4a; --note-border:#2dd4bf;
-   --sidebar-bg:#020617; --sidebar-fg:#cbd5e1; --pre-bg:#0b1220; --pre-fg:#e2e8f0;
-   --tool-bg:#0f172a; --input-bg:#0f172a;
- }
- """,
- "neon": """
- [data-theme="neon"]{
-   --bg:#0a0a0f; --fg:#f0f0ff; --muted:#a5a5c0;
-   --accent:#00ffd5; --accent2:#00e0ff; --cta:#ff2e88; --cta-strong:#ff1177;
-   --border:#2a2a4a; --code-bg:#12122a; --note-bg:#0f0f24; --note-border:#ff2e88;
-   --sidebar-bg:#05050a; --sidebar-fg:#d5d5ff; --pre-bg:#0a0a1e; --pre-fg:#e0e0ff;
-   --tool-bg:#12122a; --input-bg:#0a0a1e;
- }
- a{color:#7df9ff;}
- """,
- # "paper": tema claro estilo impresso (marca esverdeada suave). Base CLARA.
- "paper": """
- html[data-theme="paper"]{
-   --bg:#fdfcf7; --fg:#2b2b2b; --muted:#6b7280;
-   --accent:#15803d; --accent2:#166534; --cta:#b45309; --cta-strong:#92400e;
-   --border:#e5e4db; --code-bg:#f4f3ec; --note-bg:#eef7ee; --note-border:#86c79a;
-   --sidebar-bg:#f4f3ec; --sidebar-fg:#333; --pre-bg:#f4f3ec; --pre-fg:#2b2b2b;
-   --tool-bg:#eceae0; --input-bg:#fff;
- }
- [data-theme="paper"] .sidebar{color:#333;}
- [data-theme="paper"] .brand{color:#166534;}
- """,
- # "mono": monocromático (tons de cinza/preto), visual técnico/minimalista. Base CLARA.
- "mono": """
- html[data-theme="mono"]{
-   --bg:#fafafa; --fg:#111; --muted:#525252;
-   --accent:#111; --accent2:#333; --cta:#111; --cta-strong:#000;
-   --border:#d4d4d4; --code-bg:#f2f2f2; --note-bg:#f2f2f2; --note-border:#a3a3a3;
-   --sidebar-bg:#111; --sidebar-fg:#e5e5e5; --pre-bg:#111; --pre-fg:#e5e5e5;
-   --tool-bg:#262626; --input-bg:#e5e5e5;
- }
- [data-theme="mono"] .sidebar nav a{color:#a3a3a3;}
- [data-theme="mono"] h1{border-bottom-color:#111;}
- """,
-}
-def get_theme_css(cfg):
-    """Retorna o CSS de tema (dark/neon/paper/mono) com base em cfg.get('theme').
-
-    dark/neon modificam a base ESCURA (são alternativas ao light).
-    paper/mono são temas de fundo próprios (claro/escuro na sidebar) e
-    substituem completamente o :root — por isso voltam a aplicar o CSS básico
-    que já está no style.css (só redefinem as variáveis)."""
-    theme = (cfg.get("theme") or "light").lower()
-    extra = []
-    if theme == "dark":
-        extra.append(THEMES_CSS["dark"])
-        default_theme = "dark"
-    elif theme == "neon":
-        extra.append(THEMES_CSS["dark"])     # neon tb força dark base
-        extra.append(THEMES_CSS["neon"])
-        default_theme = "dark"
-    elif theme == "paper":
-        extra.append(THEMES_CSS["paper"])
-        default_theme = "paper"
-    elif theme == "mono":
-        extra.append(THEMES_CSS["mono"])
-        default_theme = "mono"
-    else:
-        default_theme = "light"
-    return "\n".join(extra), default_theme
-
+# Temas (v0.4): ver src/themes.py — THEMES_CSS y get_theme_css reexportados.
 def _side_label(title):
     """Título de link da sidebar com ícone (N18): se o texto começa com um
     emoji/símbolo, separa-o num .side-ic (badge pequeno). Ex.:
