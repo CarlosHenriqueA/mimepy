@@ -12,6 +12,9 @@ Todas as mudanças notáveis do MimePy. Formato baseado em
 - **Motor modular**: `src/build.py` virou orquestrador; lógica extraída para
   `src/render.py` (Markdown+frontmatter), `src/security.py` (sanitizador),
   `src/themes.py` (temas). Compat total (nomes públicos preservados).
+- **Refactor total de landing/blog**: `build_landing()`, `build_blog()`,
+  `_cardize()` e `LANDING_CSS` movidos para `src/modes.py`; `src/_meta.py` é a
+  fonte única de `VERSION`. `build.py` agora tem ~536 linhas (era ~1040).
 - **Sanitizador por parser real** (`html.parser`, stdlib — sem nova dependência):
   remove `<script>/<style>/<iframe>/<object>/<form>/<input>/<svg>` etc.,
   atributos `on*`, `javascript:`/`data:`/`vbscript:`/`file:`, `style` com

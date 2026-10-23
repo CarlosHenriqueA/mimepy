@@ -20,13 +20,14 @@ Markdown (.md)  ──►  src/build.py (orquestrador)  ──►  HTML autocont
                       ├─ src/render.py    → Markdown → HTML + frontmatter
                       ├─ src/security.py  → sanitização HTML (parser real)
                       ├─ src/themes.py    → temas light/dark/neon/paper/mono
+                      ├─ src/modes.py     → build_landing() + build_blog() (+ LANDING_CSS)
+                      ├─ src/_meta.py     → VERSION (fonte única)
                       ├─ build()          → monta DOCS (mode docs)
-                      ├─ build_landing()  → monta LANDING (mode landing)
-                      └─ build_blog()     → monta BLOG (mode blog)
+                      └─ build.py (main)  → despacha docs/landing/blog
 
 src/assets/style.css   → CSS global (docs): variáveis, a11y, responsivo, dark
 src/build.py (APP_JS)  → JS inline (docs): busca, dark, âncoras, TOC, highlight...
-src/build.py (LANDING_CSS) → CSS da landing (navbar, hero, cards, tema claro)
+src/modes.py (LANDING_CSS) → CSS da landing (navbar, hero, cards, tema claro)
 ```
 
 O motor tem **zero dependências além de `markdown`** (os módulos internos usam
@@ -34,8 +35,10 @@ só a stdlib — `html.parser` no security, por ex.) e gera um **único arquivo
 HTML** (CSS+JS embutidos) — por isso é offline e portátil.
 
 > **Nomes públicos preservados:** o `build` (módulo) reexporta `render_md`,
-> `get_theme_css`, `THEMES_CSS` e `sanitize_html` dos módulos, para que
-> código/imports existentes continuem funcionando sem alteração.
+> `get_theme_css`, `THEMES_CSS`, `sanitize_html`, `build_landing`, `build_blog`,
+> `_cardize` e `LANDING_CSS` dos módulos, para que código/imports existentes
+> continuem funcionando sem alteração. `VERSION` vem de `_meta` (fonte única,
+> sem drift entre módulos).
 
 ---
 
