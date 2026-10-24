@@ -25,6 +25,15 @@ Todas as mudanças notáveis do MimePy. Formato baseado em
   pasta do config para a saída; `deploy_pages.py` também o publica no `_site`.
 - **Home** atualizada com acesso direto a todos os templates/exemplos (15 links OK).
 
+### Aprimorado (ciclo v0.5 — contraste/a11y)
+- **Contraste no modo claro** da landing: textos base em quase-preto (#111827/#1f2937),
+  links em esmeralda-escura AA (#0d9488) e navbar em texto escuro — antes usavam as
+  cores claras do tema escuro (esmeralda-clara/cinza), ilegíveis sobre fundo branco.
+- **Contraste nos temas claros das docs** (light/paper/mono): `--fg` e `--muted`
+  escurecidos (ex.: `--muted #64748b` → `#374151`) para legibilidade AA mesmo em
+  textos secundários.
+- Modo escuro mantém letras claras (inalterado).
+
 ## [v0.4] — 2026-10-23
 
 ### Adicionado (ciclo de reformulação: motor + segurança + testes)

@@ -69,6 +69,9 @@ Evolução do framework. **Prioridade: 🔴 alta · 🟡 média · 🟢 baixa.**
 - [x] **Página conectada** no motor: `build_landing` copia `thank-you.html` da pasta
   do config para a saída; `deploy_pages.py` também publica no `_site`.
 - [x] **Home** com acesso direto a todos os templates/exemplos (15 links, 0 quebrados).
+- [x] **Contraste no modo claro** (a11y): landing e temas claros das docs usam texto
+  quase-preto e links esmeralda-escura AA — antes herdavam as cores claras do tema
+  escuro, ilegíveis sobre o fundo branco.
 
 ## 🟡 Média (concluído — v0.3)
 

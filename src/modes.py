@@ -36,23 +36,42 @@ LANDING_CSS = r"""
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
   text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;transition:background .2s,color .2s;}
 /* Tema CLARO na landing (p/ o botão 🌙 funcionar): quando data-theme=light,
-   inverte o fundo e os textos. Mantém a paleta autoral esmeralda/âmbar. */
-[data-theme="light"] .land{background:#f7f9fc;color:#1f2937;}
-[data-theme="light"] .land-nav{background:rgba(255,255,255,.88);border-bottom-color:#e5e7eb;}
+   inverte o fundo e os textos. Mantém a paleta autoral esmeralda/âmbar.
+   CONTRASTE (a11y): textos base em tom ESCURO/quase-preto (#111827), links em
+   esmeralda-escura AA (#0d9488) — nunca cores claras do tema escuro. */
+[data-theme="light"] .land{background:#ffffff;color:#111827;}
+[data-theme="light"] .land-nav{background:rgba(255,255,255,.92);border-bottom-color:#e5e7eb;}
 [data-theme="light"] .land .hero h1,[data-theme="light"] .land section h2,
-[data-theme="light"] .land .card h3,[data-theme="light"] .land .brand{color:#0f172a;}
+[data-theme="light"] .land .card h3,[data-theme="light"] .land .brand{color:#111827;}
 [data-theme="light"] .land .hero .tagline,[data-theme="light"] .land .card p,
 [data-theme="light"] .land section > p,[data-theme="light"] .land footer,
-[data-theme="light"] .land .form-note{color:#475569;}
+[data-theme="light"] .land .form-note{color:#1f2937;}
 [data-theme="light"] .land .card,[data-theme="light"] .land .contact-form,[data-theme="light"] .land blockquote{background:#ffffff;border-color:#e5e7eb;}
 [data-theme="light"] .land .card .ic,[data-theme="light"] .land .card h3{background:none;}
-[data-theme="light"] .land blockquote{color:#334155;}
+[data-theme="light"] .land blockquote{color:#1f2937;}
 [data-theme="light"] .land table{background:#fff;box-shadow:0 8px 24px rgba(15,23,42,.08);}
 [data-theme="light"] .land th{background:rgba(13,148,136,.10);color:#0f766e;}
-[data-theme="light"] .land td{color:#334155;}
+[data-theme="light"] .land td{color:#1f2937;}
 [data-theme="light"] .land th,[data-theme="light"] .land td{border-color:#e2e8f0;}
-[data-theme="light"] .land .form-f input,.land .form-f textarea{background:#fff;border-color:#cbd5e1;color:#1f2937;}
+[data-theme="light"] .land .form-f input,[data-theme="light"] .land .form-f textarea{background:#fff;border-color:#cbd5e1;color:#111827;}
 [data-theme="light"] .land footer{background:#f1f5f9;border-top-color:#e5e7eb;}
+/* Links no claro: esmeralda-escura (AA ~4.9:1 sobre branco) — legíveis. */
+[data-theme="light"] .land a{color:#0d9488;}
+[data-theme="light"] .land a:hover{color:#0f766e;}
+/* Navbar links no claro: texto quase-preto (não cinza-claro). */
+[data-theme="light"] .land-nav .links a{color:#1f2937;border-radius:8px;}
+[data-theme="light"] .land-nav .links a:hover{color:#0d9488;background:rgba(13,148,136,.08);}
+/* Botão secundário da landing no claro: borda esmeralda + texto escuro. */
+[data-theme="light"] .land .btn-g{border-color:#0d9488;color:#0f766e;background:rgba(13,148,136,.06);}
+[data-theme="light"] .land .btn-g:hover{border-color:#0f766e;color:#0f766e;}
+/* Tagline do hero no claro: tom escuro forte. */
+[data-theme="light"] .land .hero .tagline{color:#1f2937;}
+/* Título do hero no claro: cor sólida esmeralda-escura (não gradiente claro). */
+[data-theme="light"] .land .hero h1 span{color:#0d9488;-webkit-background-clip:initial !important;
+  background-clip:initial !important;background:none !important;}
+/* Card links no claro: texto escuro com borda esmeralda. */
+[data-theme="light"] .land .card a[href$=".html"], [data-theme="light"] .land .card p a{color:#0d9488;border-color:rgba(13,148,136,.4);background:rgba(13,148,136,.06);}
+[data-theme="light"] .land .card a[href$=".html"]:hover, [data-theme="light"] .land .card p a:hover{background:#0d9488;color:#fff;}
 /* Acessibilidade (WCAG 2.2 AA): skip link + foco visível + reduced motion */
 .land .skip-link{position:absolute;top:-60px;left:16px;z-index:200;background:#0d9488;
   color:#fff;padding:10px 16px;border-radius:0 0 8px 8px;text-decoration:none;font-weight:600;transition:top .2s;}

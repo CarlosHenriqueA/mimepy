@@ -44,19 +44,19 @@ a{color:#7df9ff;}
     # "paper": tema claro estilo impreso (marca esverdeada suave). Base CLARA.
     "paper": """
 html[data-theme="paper"]{
-  --bg:#fdfcf7; --fg:#2b2b2b; --muted:#6b7280;
+  --bg:#fdfcf7; --fg:#1a1a1a; --muted:#3f3f46;
   --accent:#15803d; --accent2:#166534; --cta:#b45309; --cta-strong:#92400e;
   --border:#e5e4db; --code-bg:#f4f3ec; --note-bg:#eef7ee; --note-border:#86c79a;
-  --sidebar-bg:#f4f3ec; --sidebar-fg:#333; --pre-bg:#f4f3ec; --pre-fg:#2b2b2b;
+  --sidebar-bg:#f4f3ec; --sidebar-fg:#1a1a1a; --pre-bg:#f4f3ec; --pre-fg:#1a1a1a;
   --tool-bg:#eceae0; --input-bg:#fff;
 }
-[data-theme="paper"] .sidebar{color:#333;}
+[data-theme="paper"] .sidebar{color:#1a1a1a;}
 [data-theme="paper"] .brand{color:#166534;}
 """,
     # "mono": monocromático (tonos de gris/negro), visual técnico/minimalista. Base CLARA.
     "mono": """
 html[data-theme="mono"]{
-  --bg:#fafafa; --fg:#111; --muted:#525252;
+  --bg:#fafafa; --fg:#000; --muted:#27272a;
   --accent:#111; --accent2:#333; --cta:#111; --cta-strong:#000;
   --border:#d4d4d4; --code-bg:#f2f2f2; --note-bg:#f2f2f2; --note-border:#a3a3a3;
   --sidebar-bg:#111; --sidebar-fg:#e5e5e5; --pre-bg:#111; --pre-fg:#e5e5e5;

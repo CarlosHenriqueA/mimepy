@@ -91,6 +91,12 @@ Retorna o CSS extra do tema configurado e o tema padrão:
 - `paper` / `mono` → temas de base própria (claro/mono)
 - `light` (padrão) → vazio
 
+> **Contraste (a11y, v0.5):** nos temas CLAROS (light/paper/mono) os tokens
+> `--fg`/`--muted` são tons ESCUROS (quase-preto) para legibilidade AA; a landing,
+> no seu bloco `[data-theme="light"]` em `LANDING_CSS`, troca textos/esmeralda de
+> claro por tons escuros + esmeralda-escura `#0d9488` nos links. No escuro, ficam
+> claros. Vale medir o contraste ao alterar qualquer cor (WCAG ≥ 4.5:1).
+
 ### `build(cfg, base_dir)`
 Monta a página de **documentação** (mode docs):
 1. lê `docs_dir`, monta `sidebar` a partir de `cfg["sidebar"]`

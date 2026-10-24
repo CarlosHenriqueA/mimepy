@@ -6,7 +6,7 @@
    Tudo via CSS variables — o dark mode troca só as variáveis.
    ============================================================ */
 :root{
-  --bg:#ffffff; --fg:#1f2937; --muted:#64748b;
+  --bg:#ffffff; --fg:#111827; --muted:#374151;
   --accent:#0d9488; --accent2:#0f766e;        /* esmeralda/teal (autoral) */
   --cta:#f59e0b; --cta-strong:#d97706;         /* âmbar — CTA único */
   --border:#e5e7eb; --code-bg:#f1f5f9;
