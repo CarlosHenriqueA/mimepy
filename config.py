@@ -51,6 +51,6 @@ PROJECT = {
             ("SEGURANCA.md", "🛡️ Segurança"),
             ("ACESSIBILIDADE.md", "♿ Acessibilidade"),
             ("ROADMAP.md", "🗺️ Roadmap & futuras melhorias"),
-            ("MELHORIAS_FUTURAS.md", "✨ Novas melhorias ideadas"),
+            ("MELHORIAS_FUTURAS.md", "✨ Melhorias"),
         ],
 }

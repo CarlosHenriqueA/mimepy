@@ -1,4 +1,4 @@
-# ✨ MimePy — Novas Melhorias Ideadas (pesquisa de mercado/frontend)
+# ✨ MimePy — Melhorias
 
 > Registro das **novas** melhorias idealizadas além do roadmap, baseadas em
 > boas práticas de frontend/UI/UX e no posicionamento de mercado (GitBook,
@@ -25,7 +25,7 @@
 26. **CLI `mimepy init/build`** — criar projeto + rodar build com 1 comando (democratiza).
 27. **Busca com snippet/destaque** — mostrar o trecho que casou no resultado.
 28. **Exportação DTCG/Tailwind** do DESIGN.md (`tokens.json`/`theme.css`).
-29. **Multi-versão de docs** (`/v1/`, `/v2/`) via `out_dir` por versão.
+29. ✅ **Multi-versão de docs** (`/v1/`, `/v2/`) — exemplo em `examples/versoes/` (v1+v2, mesmo Markdown, `out_dir` por config).
 30. **GitHub Action** para build automático + deploy no Pages por PR.
 
 ---
@@ -83,7 +83,7 @@ mantendo a simplicidade:
 |---|---|---|
 | MkDocs | **material design / ícones embutidos** | ✅ tema "paper" **feito** + ícones por emoji já têm |
 | GitBook | **pesquisa global + atalhos de teclado (**`/`**)** | ✅ tecla `/` **feito** |
-| Docusaurus | **multiversão de docs** (`/v1/`, `/v2/`) | `out_dir` por versão (já suporta) |
+| Docusaurus | **multiversão de docs** (`/v1/`, `/v2/`) | ✅ exemplo `examples/versoes/` (out_dir por config) |
 | ReadTheDocs | **build remoto + preview por PR** | GitHub Action que roda build (já planejado) |
 | Mintlify | **hierarquia de sidebar em grupos** | sidebar por seções/agrupamento no config |
 | GitBook/MkDocs | **dark/light nativo + código highlight** | ✅ já temos |
