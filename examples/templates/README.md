@@ -20,7 +20,7 @@ python src/build.py examples/templates/<tipo>/config.py
 | 🚀 **Startup** | `startup/` | App/SaaS: proposta de valor, planos, FAQ |
 | 🛠️ **Produto** | `produto/` | Produto/serviço: destaques + como funciona |
 | 🎟️ **Evento** | `evento/` | Conferência/workshop: agenda, palestrantes, inscrição |
-| 📚 **Docs** | `docs/` | Página inicial de documentação de projeto |
+| 📚 **Docs** | `docs/` | Documentação em **modo docs real**: barra lateral (esquerda) + conteúdo (direita) |
 | 📬 **Contato** | `contato/` | Captura de leads: formulário de contato + compromissos |
 
 ## O que vem em cada template
