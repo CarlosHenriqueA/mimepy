@@ -24,7 +24,10 @@ PROJECT = {
     "docs_dir": ".",                   # LANDING.md fica junto do config (modo landing)
     "out_dir": "out",
     "out_file": "index.html",
-    "landing_md": "LANDING.md",
+
+
+    # Home: caminho relativo até a página principal (raiz do site).
+    "home_url": "../../../index.html",    "landing_md": "LANDING.md",
 
     "footer": "Café Aurora · Torrefação Especial · 2026",
 

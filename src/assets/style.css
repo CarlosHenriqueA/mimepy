@@ -79,6 +79,12 @@ a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visibl
   padding:24px 16px;overflow-y:auto;position:sticky;top:0;height:100vh;}
 .brand-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:4px;gap:8px;}
 .brand{font-size:1.15rem;font-weight:700;color:#fff;display:inline-flex;align-items:center;gap:10px;min-width:0;flex:1 1 auto;line-height:1.3;}
+/* O brand agora é um LINK para a página inicial (home). Mantém a aparência,
+   sem sublinhado, com hover sutil indicando que é clicável (a11y). */
+a.brand{text-decoration:none;color:inherit;border-radius:8px;}
+a.brand:hover{color:#5eead4;}
+a.brand:hover .df-badge{box-shadow:0 0 0 3px rgba(45,212,191,.35);}
+a.brand:focus-visible{outline:3px solid var(--accent);outline-offset:2px;}
 .df-logo{height:28px;width:auto;border-radius:6px;vertical-align:middle;}
 /* Badge do emoji no brand (visual profissional — caixinha com fundo) */
 .df-badge{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;

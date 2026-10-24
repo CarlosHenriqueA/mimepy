@@ -68,7 +68,9 @@ LANDING_CSS = r"""
   padding:14px 28px;background:rgba(11,18,32,.72);backdrop-filter:blur(10px);
   -webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06);}
 .land-nav .brand{display:flex;align-items:center;gap:10px;font-weight:800;color:#fff;
-  font-size:1.05rem;letter-spacing:.02em;}
+  font-size:1.05rem;letter-spacing:.02em;text-decoration:none;border-radius:8px;
+  padding:4px 6px;transition:color .2s,background .2s;}
+.land-nav a.brand:hover{color:#5eead4;background:rgba(255,255,255,.06);}
 .land-nav .brand .badge{font-size:1.3rem;}
 .land-nav .links{display:flex;gap:6px;}
 .land-nav .links a{color:#9ca3af;text-decoration:none;font-size:.9rem;padding:8px 12px;
@@ -449,7 +451,7 @@ def build_landing(cfg, base_dir):
 <body class="land">
   <a class="skip-link" href="#secoes">Pular para o conteúdo</a>
   <nav class="land-nav" aria-label="Navegação principal">
-    <div class="brand"><span class="badge">{emoji_esc}</span>{_html.escape(cfg['name'])}</div>
+    <a class="brand" href="{_html.escape(cfg.get('home_url','index.html'))}" aria-label="Ir para a página inicial"><span class="badge">{emoji_esc}</span>{_html.escape(cfg['name'])}</a>
     <div class="links">{nav_items}</div>
     <div class="cta-nav">{theme_btn}<a class="btn btn-p" href="#secoes">{_html.escape(cta_text)}</a></div>
   </nav>
@@ -523,6 +525,7 @@ def build_blog(cfg, base_dir):
 <title>{_html.escape(cfg['page_title'])}</title>
 <style>{css}</style></head>
 <body class="main" style="max-width:820px;margin:0 auto;padding:48px 24px;">
+<a href="{_html.escape(cfg.get('home_url','index.html'))}" style="display:inline-block;text-decoration:none;color:var(--accent);font-weight:700;font-size:.9rem;margin-bottom:14px;border:1px solid var(--border);border-radius:8px;padding:6px 12px;background:var(--code-bg);">← {_html.escape(cfg.get('brand',''))} {_html.escape(cfg.get('name',''))} (voltar à página inicial)</a>
 <h1>{_html.escape(cfg['page_title'])}</h1>
 <p style="color:var(--muted)">{_html.escape(cfg.get('intro',''))}</p>
 <hr>{body}

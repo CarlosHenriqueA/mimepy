@@ -33,6 +33,9 @@ PROJECT = {
     "out_file": "index.html",
     "landing_md": "SITE.md",
 
+    # Esta é a HOME (página principal) — o logo aponta para si mesma (index.html).
+    "home_url": "index.html",
+
     # tema autoral (padrão esmeralda/teal; com dark/neon opcional)
     "theme": "dark",
     "extensions": ["tables", "fenced_code", "sane_lists", "attr_list", "def_list", "toc"],

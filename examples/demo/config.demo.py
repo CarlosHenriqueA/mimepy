@@ -31,6 +31,9 @@ PROJECT = {
     "out_dir": os.path.join(_HERE, "out"),
     "out_file": "solaris-kit.html",
 
+
+    # Home: caminho relativo até a página principal (raiz do site).
+    "home_url": "../../../index.html",
     "extensions": ["tables", "fenced_code", "sane_lists", "md_in_html",
                    "attr_list", "def_list", "toc"],
 

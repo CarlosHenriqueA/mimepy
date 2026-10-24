@@ -11,7 +11,10 @@ PROJECT = {
     "docs_dir": ".",
     "out_dir": "out",
     "out_file": "index.html",
-    "landing_md": "LANDING.md",
+
+
+    # Home: caminho relativo até a página principal (raiz do site).
+    "home_url": "../../../../index.html",    "landing_md": "LANDING.md",
     "hero": {
         "emoji": "🎟️",
         "tagline": "Data, local e agenda do evento. Inscreva-se agora e garanta seu lugar.",

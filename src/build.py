@@ -470,7 +470,9 @@ def build(cfg, base_dir):
 <div class="wrap">
   <aside class="sidebar" aria-label="Navegação do documento">
     <div class="brand-top">
-      <span class="brand">{brand_mark} {_html.escape(cfg['name'])}</span>
+      <a class="brand" href="{_html.escape(cfg.get('home_url','index.html'))}" data-i18n="home">
+        {brand_mark} {_html.escape(cfg['name'])}
+      </a>
     </div>
     <div class="brand-sub">{_html.escape(cfg.get('subtitle',''))}</div>
     {search_html}

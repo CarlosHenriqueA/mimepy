@@ -18,5 +18,9 @@ PROJECT = {
     "out_dir": "out",
     "out_file": "index.html",
 
+    # Home: na publicação GitHub Pages, o blog vive em /examples/blog/out/,
+    # então subir até a home (raiz do site) exige 4 níveis.
+    "home_url": "../../../../index.html",
+
     "extensions": ["tables", "fenced_code", "sane_lists", "attr_list", "def_list"],
 }

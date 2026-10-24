@@ -27,6 +27,10 @@ PROJECT = {
     "out_dir": ".",
     "out_file": "index.html",
 
+    # Home: caminho relativo (na publicação GitHub Pages) até a página principal
+    # (a home é _site/index.html; esta doc vive em /docs/, então sobe 1 nível).
+    "home_url": "../index.html",
+
     # Extensões python-markdown (opcional)
     "extensions": ["tables", "fenced_code", "sane_lists", "md_in_html",
                    "attr_list", "def_list", "toc"],
