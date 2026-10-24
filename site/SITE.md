@@ -41,31 +41,54 @@ Ctrl+P vira um **PDF limpo** — ou use o script dedicado de PDF.
 ### 🧩 Um arquivo só, offline
 Saída leve e portátil. **Sem CDN, sem build complexo, sem Node, sem dor.**
 
+## ⚙️ Estado do projeto
+
+Versão **v0.5** · **45 testes** automáticos (build, segurança e temas) · **CI** que
+gera todas as páginas e publica no **GitHub Pages** · **16 páginas** no site.
+
+**Recursos confirmados:**
+- 🧑‍💻 **Motor modular** (`build`/`render`/`security`/`themes`/`modes`) com
+  sanitizador por parser real (stdlib) — bloqueia XSS sem dependência nova.
+- 🧩 **Página conectada**: uma landing de vendas pode acompanhar um
+  `thank-you.html` (resposta pós-clique), publicado junto no deploy.
+- 📝 **Markdown é a única fonte** de entrada; design/JS ficam na camada de saída.
+- 🖨️ **Impressão/PDF** nítida e opaca (Ctrl+P) ou via script dedicado.
+- ♿ **Contraste AA** garantido no claro **e** no escuro (validado com medidor).
+
+> **Backstory:** framework autoral, sem "vibe coding" — paleta esmeralda/teal +
+> âmbar ousada, com acessibilidade de fábrica.
+
 ## 👶 O que dá para criar (exemplos reais)
 
 ### 📘 Documentação completa
 Documentação **geral do framework** (mode docs): sidebar com ícones, busca,
-temas, âncoras, TOC e mais — **9 guias** do simples ao técnico, incluindo o
-**[Guia para leigos](docs/index.html#COMO_USAR)**.
+temas, âncoras, TOC e mais — **10 guias** do simples ao técnico, incluindo o
+**[Guia para leigos](docs/index.html#COMO_USAR)**, o **[Tutorial](docs/index.html#TUTORIAL)**
+e a **[Documentação de construção](docs/index.html#COMO_FOI_FEITO)**.
 
 [📘 Abrir a documentação →](docs/index.html)
 
-### 🎯 Exemplos prontos
-**☕ Café Aurora** — landing de negócio · **🏗️ Showcase** — potência visual ·
-**☀️ Solaris Kit** — reuso em outro projeto · **📰 Blog** — posts por data.
+### 🎯 Exemplos prontos (demos de verdade)
+Cada exemplo é um projeto real e completo, só de Markdown — clique e veja:
+**☕ Café Aurora** (negócio) · **🏗️ Showcase** (recursos) · **☀️ Solaris Kit**
+(reuso em outro produto) · **📰 Blog** (posts por data).
 
-[Ver a landing →](examples/landing/out/index.html) · [Ver o showcase →](examples/recursos/out/index.html)
-· [Ver o demo →](examples/demo/out/solaris-kit.html) · [Ver o blog →](examples/blog/out/index.html)
+[☕ Café Aurora →](examples/landing/out/index.html) · [🏗️ Showcase →](examples/recursos/out/index.html)
+· [☀️ Solaris Kit →](examples/demo/out/solaris-kit.html) · [📰 Blog →](examples/blog/out/index.html)
 
-### 🎨 Templates prontos (copie e edite)
+### 🎨 Templates prontos (copie, edite e publique)
+Oito modelos para você começar com conteúdo de exemplo e apenas trocar os
+textos. Cada um já tem o layout, os cards e as seções montados.
 
-**🚀 Startup** · **🛠️ Produto** · **🎟️ Evento** · **📚 Docs** · **📬 Contato** ·
-**✍️ Blog** · **🧞 Bio** · **💰 Página de Vendas** — modelos para começar.
+**🚀 Startup** — institucional com valores/equipe/depoimentos · **🛠️ Produto** — funcionalidades + tabela comparativa + garantia
+· **🎟️ Evento** — agenda + palestrantes + ingressos + FAQ · **📚 Docs** — documentação com sidebar
+· **📬 Contato** — formulário de captura de leads · **✍️ Blog** — posts por data
+· **🧞 Bio** — link-in-bio estilo Linktree · **💰 Vendas** — landing de alta conversão + página de obrigado
 
-[Ver startup →](examples/templates/startup/out/index.html) · [Ver produto →](examples/templates/produto/out/index.html)
-· [Ver evento →](examples/templates/evento/out/index.html) · [Ver docs →](examples/templates/docs/out/index.html)
-· [Ver contato →](examples/templates/contato/out/index.html) · [Ver blog →](examples/templates/blog/out/index.html)
-· [Ver bio →](examples/templates/bio/out/index.html) · [Ver vendas →](examples/templates/landingpage/out/index.html) · [Ver o obrigado →](examples/templates/landingpage/out/thank-you.html)
+[🚀 Startup →](examples/templates/startup/out/index.html) · [🛠️ Produto →](examples/templates/produto/out/index.html)
+· [🎟️ Evento →](examples/templates/evento/out/index.html) · [📚 Docs →](examples/templates/docs/out/index.html)
+· [📬 Contato →](examples/templates/contato/out/index.html) · [✍️ Blog →](examples/templates/blog/out/index.html)
+· [🧞 Bio →](examples/templates/bio/out/index.html) · [💰 Vendas →](examples/templates/landingpage/out/index.html) · [🙏 Obrigado →](examples/templates/landingpage/out/thank-you.html)
 
 ### 🌐 Publicar no GitHub Pages (grátis)
 Hospede o HTML gerado e ganhe um endereço público. Guia completo no arquivo

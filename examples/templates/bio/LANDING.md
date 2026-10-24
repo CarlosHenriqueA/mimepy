@@ -44,5 +44,21 @@ Deixe seu e-mail e receba conteúdo exclusivo — sem spam, cancele quando quise
 Nome, Email
 ```
 
+## ❓ Perguntas rápidas
+
+### Como adiciono um link?
+
+Edite `LANDING.md`: cada `###` vira um card/botão — é só trocar o texto e o link.
+
+### E se eu não quiser formulário?
+
+Remova o bloco ` ```form `. O restante do perfil continua igual, sem nada quebrado.
+
+### Preciso de conta ou página?
+
+Não. O MimePy gera **1 arquivo HTML offline** — você publica onde quiser.
+
+> Gostou? Compartilhe meu perfil com quem pode se beneficiar. Obrigado! 🙏
+
 ---
 > Template gerado com **MimePy** — bio 100% offline, sem conta e sem taxa.
