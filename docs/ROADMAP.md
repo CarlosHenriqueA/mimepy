@@ -51,7 +51,7 @@ Evolução do framework. **Prioridade: 🔴 alta · 🟡 média · 🟢 baixa.**
 - [x] **Temas alternativos** pré-prontos (`theme: light/dark/neon/paper/mono`)
 - [x] **TOC sticky** em docs longas (`.df-toc` fixo ao rolar)
 - [x] **Atalho de teclado `/`** para focar a busca (padrão GitBook/Mintlify)
-- [x] **Templates de landing prontos** (startup, produto, evento, docs) em `examples/templates/`
+- [x] **Templates de landing prontos** (startup, produto, evento, docs, contato) em `examples/templates/`
 - [x] **Documentação técnica** `docs/TECNICO.md` (para dev/IA)
 - [x] **Modo landing**: formulário de contato via Markdown (bloco `fence form`, offline)
 - [x] **Página de "Acessibilidade"** na doc do framework (declarar conformidade WCAG e recursos nativos) [a11y]

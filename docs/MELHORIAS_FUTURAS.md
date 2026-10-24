@@ -20,13 +20,13 @@
 
 ## 📌 Anotado para melhorias futuras (novas)
 
-24. **4 landing templates prontos** (startup, produto, evento, docs) em `examples/templates/` — copiar → editar → publicar (dar ao usuário um ponto de partida de download).
+24. **5 landing templates prontos** (startup, produto, evento, docs, contato) em `examples/templates/` — copiar → editar → publicar (dar ao usuário um ponto de partida de download).
 25. **`prefers-contrast` automático** — acionar o modo alto contraste via media query do SO (sem botão).
 26. **CLI `mimepy init/build`** — criar projeto + rodar build com 1 comando (democratiza).
 27. **Busca com snippet/destaque** — mostrar o trecho que casou no resultado.
-28. **Exportação DTCG/Tailwind** do DESIGN.md (`tokens.json`/`theme.css`).
-29. ✅ **Multi-versão de docs** (`/v1/`, `/v2/`) — exemplo em `examples/versoes/` (v1+v2, mesmo Markdown, `out_dir` por config).
-30. **GitHub Action** para build automático + deploy no Pages por PR.
+- [x] **Exportação DTCG/Tailwind do DESIGN.md** (`tokens.json`/`theme.css`) — `scripts/export_tokens.py` (N28).
+- [x] **Multi-versão de docs** (`/v1/`, `/v2/`) — exemplo em `examples/versoes/`. (out_dir por versão)
+- [x] **Site/changelog público em GitHub Pages** — CI + Pages ativo (N16), CHANGELOG.md (N15), sitemap/404 (N23).
 
 ---
 
@@ -41,7 +41,7 @@
 
 5. **`prefers-contrast` (alto contraste automático)** — usar a media query para acionar o modo HC sem botão, em usuários que já pedem no SO.
 6. **Tema escuro em landing** — hoje a landing é sempre escura; permitir landing clara/escura por config.
-7. ✅ **Imagens responsivas** — `loading=lazy` + CSS fluido (N7).
+- [x] **Imagens responsivas (lazy-load / width no Markdown)** — `loading=lazy` + CSS fluido (N7).
 8. **Sticky TOC** em docs longas — o TOC recolhível pode virar sticky ao rolar.
 9. ✅ **Print aprimorado** — `@page` A4 + numeração de páginas (N9).
 
@@ -54,7 +54,7 @@
 ## 🌍 Mercado/adoção
 
 13. ✅ **Badge de licença/versão** no README e no site (pills inline offline).
-14. ✅ **Templates de exemplo** — 4 landing templates prontos (startup, produto, evento, docs) em `examples/templates/`.
+14. ✅ **Templates de exemplo** — 5 landing templates prontos (startup, produto, evento, docs, contato) em `examples/templates/`.
 15. ✅ **Changelog** + gerador (N15).
 16. ✅ **GitHub Actions** — CI + Pages (N16).
 

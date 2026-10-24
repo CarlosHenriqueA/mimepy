@@ -51,6 +51,7 @@ PROJECT = {
             ("COMO_USAR.md", "👶 Guia para leigos (passo a passo)"),
             ("TUTORIAL.md", "🧭 Tutorial passo a passo"),
             ("TECNICO.md", "🧑💻 Documentação técnica"),
+            ("COMO_FOI_FEITO.md", "🏗️ Como foi feito (dev)"),
             ("REGRAS_DE_ESTILO.md", "🎨 Regras de estilo"),
             ("SEGURANCA.md", "🛡️ Segurança"),
             ("ACESSIBILIDADE.md", "♿ Acessibilidade"),

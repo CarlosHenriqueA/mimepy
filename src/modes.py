@@ -246,6 +246,30 @@ LANDING_CSS = r"""
   .land .land-nav .brand span[class=badge]{display:none;}
   .land section h2{font-size:1.3rem;}
 }
+
+/* ============================================================
+   PRINT (landing) — PDF limpo e OPACO, mesmo no tema escuro.
+   Sem print-color-adjust:exact, o navegador não imprime o fundo
+   e imagens com canal alfa ficam translúcidas no papel.
+   ============================================================ */
+@media print{
+  .land *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;}
+  .land{background:#fff !important;color:#000 !important;}
+  .land-nav,.land .land-theme,.land .btn-g{display:none !important;}
+  .land .hero{padding:60px 24px 30px;}
+  .land .hero h1,.land .hero h1 span{color:#000 !important;
+    -webkit-background-clip:initial !important;background-clip:initial !important;
+    background:none !important;}
+  .land .hero .tagline,.land section > p,.land .card p{color:#333 !important;}
+  .land .card,.land .contact-form,.land blockquote{background:#fafafa !important;
+    border-color:#ccc !important;}
+  .land .card h3,.land section h2{color:#000 !important;}
+  .land img{opacity:1 !important;filter:none !important;
+    -webkit-filter:none !important;mix-blend-mode:normal !important;}
+  .land footer{background:#f1f5f9 !important;color:#333 !important;
+    border-top-color:#ddd !important;}
+  @page{size:A4;margin:16mm;}
+}
 """
 
 def _cardize(block):

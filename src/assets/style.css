@@ -332,6 +332,11 @@ hr{border:none;border-top:1px solid var(--border);margin:24px 0;}
    Oculta sidebar, botões e dark mode; texto preto sobre branco.
    ============================================================ */
 @media print{
+  /* Força a impressão fiel de cores/fundos (resolve imagens translúcidas no PDF).
+     Sem print-color-adjust:exact, o navegador não imprime cores de fundo e as
+     imagens com canal alfa (transparência) "sangram" sobre o fundo branco do
+     papel, deixando bordas/textos translúcidos — em claro e em escuro. */
+  *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;}
   body{background:#fff !important;color:#000 !important;font-size:12px;}
   .sidebar,.menu-toggle,#df-top,#df-dark,.df-copy,.df-share,.top-tools{display:none !important;}
   .main{max-width:100%;padding:0;}
@@ -340,6 +345,10 @@ hr{border:none;border-top:1px solid var(--border);margin:24px 0;}
   h1,h2,h3,h4{page-break-after:avoid;}
   .section{page-break-inside:auto;}
   .pn{display:none;}
+  /* N7/COR: imagens sempre OPACAS e sem filtro ao imprimir — garante bordas e
+     texto nítidos mesmo para PNG com transparência (causa raiz do bug do PDF). */
+  .main img,.land img{opacity:1 !important;filter:none !important;
+    -webkit-filter:none !important;mix-blend-mode:normal !important;}
   /* N9: numeração de páginas + margens A4 no rodapé */
   @page{size:A4;margin:16mm;}
   @page{@bottom-center{content:counter(page) " / " counter(pages);font-size:9px;color:#666;}}

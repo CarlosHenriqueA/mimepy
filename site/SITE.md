@@ -58,10 +58,11 @@ temas, âncoras, TOC e mais — **9 guias** do simples ao técnico, incluindo o
 · [Ver o demo →](examples/demo/out/solaris-kit.html) · [Ver o blog →](examples/blog/out/index.html)
 
 ### 🎨 Templates de landing (copie e edite)
-**🚀 Startup** · **🛠️ Produto** · **🎟️ Evento** · **📚 Docs** — modelos prontos para começar.
+**🚀 Startup** · **🛠️ Produto** · **🎟️ Evento** · **📚 Docs** · **📬 Contato** — modelos prontos para começar.
 
 [Ver startup →](examples/templates/startup/out/index.html) · [Ver produto →](examples/templates/produto/out/index.html)
 · [Ver evento →](examples/templates/evento/out/index.html) · [Ver docs →](examples/templates/docs/out/index.html)
+· [Ver contato →](examples/templates/contato/out/index.html)
 
 ### 🌐 Publicar no GitHub Pages (grátis)
 Hospede o HTML gerado e ganhe um endereço público. Guia completo no arquivo
