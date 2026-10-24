@@ -21,8 +21,10 @@ credentials.json
 
 # ---------- Saída gerada (regenerável com build.py) ----------
 index.html
-examples/*/out/
-examples/*/out_*/          # multi-versão: out_v1/, out_v2/ (gerados)
+# qualquer pasta de saída de build, em qualquer profundidade
+**/out/
+# multi-versão: out_v1/, out_v2/ (gerados)
+examples/*/out_*/
 _site/
 
 # ---------- Arquivos pessoais / de contexto (NÃO publicar) ----------
