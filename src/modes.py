@@ -15,6 +15,7 @@ Dependências internas:
 """
 import re
 import sys
+import shutil
 import html as _html
 from pathlib import Path
 import markdown
@@ -506,6 +507,14 @@ def build_landing(cfg, base_dir):
     out.mkdir(parents=True, exist_ok=True)
     out_file = out / cfg["out_file"]
     out_file.write_text(doc, encoding="utf-8")
+    # Página CONECTADA (ex.: thank-you.html de uma landing de vendas): se existir
+    # um arquivo com esse nome na MESMA pasta do config (fonte versionada), copia
+    # para a pasta de saída — mantém o par (página principal + página conectada)
+    # junto no build, não só no deploy. Permite fluxos multi-página simples.
+    ty = (base_dir / "thank-you.html").resolve()
+    if ty.exists() and ty.is_file():
+        shutil.copy2(ty, out / "thank-you.html")
+        print(f"[MimePy {VERSION}] LANDING OK -> página conectada copiada: thank-you.html")
     print(f"[MimePy {VERSION}] LANDING OK -> {out_file} ({out_file.stat().st_size} bytes)")
     return out_file
 

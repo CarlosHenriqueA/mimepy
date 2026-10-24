@@ -22,6 +22,9 @@ python src/build.py examples/templates/<tipo>/config.py
 | 🎟️ **Evento** | `evento/` | Conferência/workshop: agenda, palestrantes, inscrição |
 | 📚 **Docs** | `docs/` | Documentação em **modo docs real**: barra lateral (esquerda) + conteúdo (direita) |
 | 📬 **Contato** | `contato/` | Captura de leads: formulário de contato + compromissos |
+| ✍️ **Blog** | `blog/` | Blog de posts por data (frontmatter) |
+| 🧞 **Bio** | `bio/` | Link-in-bio estilo Linktree: perfil, links, produto, newsletter |
+| 💰 **Vendas** | `landingpage/` | Landing de alta conversão + página de obrigado |
 
 ## O que vem em cada template
 

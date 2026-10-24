@@ -72,6 +72,15 @@ def go(config_path):
                 dst = site_root / "examples" / rel_out / f.name
                 dst.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(f, dst)
+            # Página CONECTADA (thank-you): se o config do template tiver um
+            # thank-you.html na raiz (fonte versionada), copia para o out/
+            # correspondente — assim o par (venda -> obrigado) vai pro Pages.
+            tplate = out.parent                    # ex.: templates/landingpage
+            ty = tplate / "thank-you.html"
+            if ty.exists():
+                dst = site_root / "examples" / rel_out / "thank-you.html"
+                dst.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(ty, dst)
 
     # 4) sitemap.xml + robots.txt + 404.html (na raiz do _site)
     base_url = "/"

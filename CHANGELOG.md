@@ -6,6 +6,25 @@ Todas as mudanças notáveis do MimePy. Formato baseado em
 > Este arquivo é **complementado** por `docs/ROADMAP.md` (visão completa das
 > melhorias) e pode ser regenerado/aumentado com `scripts/gen_changelog.py`.
 
+## [v0.5] — 2026-10-24
+
+### Adicionado (ciclo de templates + exemplos)
+- **Templates aprimorados**: `startup` (sobre, valores, equipe, métricas, depoimentos,
+  CTA), `produto` (destaques, comparativo em tabela, depoimentos, planos, garantia) e
+  `evento` (agenda, 5 palestrantes, localização, ingressos, FAQ) — agora com dados de
+  demonstração realistas e todas as camadas que o motor renderiza.
+- **Template `blog`** movido para o módulo de templates (`examples/templates/blog/`),
+  padronizado com os demais.
+- **Template `bio`** (link-in-bio estilo Linktree/bio.site): perfil, botões de link,
+  card de produto, mídia, newsletter; publicamos a pesquisa prévia obrigatória em
+    `examples/templates/bio/PESQUISA_CONCORRENTES.md` (Linktree, Beacons, Bio.site, Taplink, Lnk.bio, Carrd).
+- **Template `landingpage`** de alta conversão: hero, prova social, dor/solução,
+  módulos, quem-é/não-é, bio do autor, depoimentos, garantia, oferta/preço e FAQ +
+  **página conectada `thank-you.html`** (fluxo venda → confirmação).
+- **Página conectada** no motor: `build_landing` copia um `thank-you.html` que exista na
+  pasta do config para a saída; `deploy_pages.py` também o publica no `_site`.
+- **Home** atualizada com acesso direto a todos os templates/exemplos (15 links OK).
+
 ## [v0.4] — 2026-10-23
 
 ### Adicionado (ciclo de reformulação: motor + segurança + testes)

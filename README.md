@@ -63,7 +63,7 @@ O MimePy tem um **design system próprio** (`DESIGN.md` — tokens em formato pa
 | 🎛️ **Temas** (light/dark/neon/paper/mono) | ✅ | — |
 | 📑 **TOC recolhível + sticky** (docs longas) | ✅ | — |
 | ⌨️ **Atalho `/`** p/ focar a busca | ✅ | — |
-| 🎨 **Templates** de landing (startup/produto/evento/docs) | — | ✅ |
+| 🎨 **Templates** de landing (startup/produto/evento/docs/contato/blog/bio/vendas) | — | ✅ |
 | 🧑‍💻 **Documentação técnica** (dev/IA) | ✅ | — |
 | 🌐 **Idiomas** (toggle pt/en) | ✅ | — |
 | 📄 **Gerar PDF** (script) | ✅ | — |

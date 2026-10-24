@@ -57,12 +57,15 @@ temas, âncoras, TOC e mais — **9 guias** do simples ao técnico, incluindo o
 [Ver a landing →](examples/landing/out/index.html) · [Ver o showcase →](examples/recursos/out/index.html)
 · [Ver o demo →](examples/demo/out/solaris-kit.html) · [Ver o blog →](examples/blog/out/index.html)
 
-### 🎨 Templates de landing (copie e edite)
-**🚀 Startup** · **🛠️ Produto** · **🎟️ Evento** · **📚 Docs** · **📬 Contato** — modelos prontos para começar.
+### 🎨 Templates prontos (copie e edite)
+
+**🚀 Startup** · **🛠️ Produto** · **🎟️ Evento** · **📚 Docs** · **📬 Contato** ·
+**✍️ Blog** · **🧞 Bio** · **💰 Página de Vendas** — modelos para começar.
 
 [Ver startup →](examples/templates/startup/out/index.html) · [Ver produto →](examples/templates/produto/out/index.html)
 · [Ver evento →](examples/templates/evento/out/index.html) · [Ver docs →](examples/templates/docs/out/index.html)
-· [Ver contato →](examples/templates/contato/out/index.html)
+· [Ver contato →](examples/templates/contato/out/index.html) · [Ver blog →](examples/templates/blog/out/index.html)
+· [Ver bio →](examples/templates/bio/out/index.html) · [Ver vendas →](examples/templates/landingpage/out/index.html) · [Ver o obrigado →](examples/templates/landingpage/out/thank-you.html)
 
 ### 🌐 Publicar no GitHub Pages (grátis)
 Hospede o HTML gerado e ganhe um endereço público. Guia completo no arquivo
@@ -81,7 +84,7 @@ Hospede o HTML gerado e ganhe um endereço público. Guia completo no arquivo
 **GNU GPL v2** — código aberto com copyleft. Use, modifique e distribua livremente; obras derivadas também devem ser GPL-2.0.
 
 <p>
-  <span style="display:inline-block;padding:.15em .7em;margin:.1em;font-size:.8em;border-radius:10px;color:#fff;background:#0d9488;border:1px solid #0f766e;">📦 v0.4</span>
+  <span style="display:inline-block;padding:.15em .7em;margin:.1em;font-size:.8em;border-radius:10px;color:#fff;background:#0d9488;border:1px solid #0f766e;">📦 v0.5</span>
   <span style="display:inline-block;padding:.15em .7em;margin:.1em;font-size:.8em;border-radius:10px;color:#fff;background:#0f766e;border:1px solid #15803d;">⚖️ GPL-2.0</span>
   <span style="display:inline-block;padding:.15em .7em;margin:.1em;font-size:.8em;border-radius:10px;color:#fff;background:#2dd4bf;border:1px solid #5eead4;color:#064e3b;">🐍 Python 3.9+</span>
   <span style="display:inline-block;padding:.15em .7em;margin:.1em;font-size:.8em;border-radius:10px;color:#fff;background:#15803d;border:1px solid #166534;">👶 Leigos bem-vindos</span>

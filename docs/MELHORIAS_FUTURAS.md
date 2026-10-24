@@ -20,7 +20,7 @@
 
 ## 📌 Anotado para melhorias futuras (novas)
 
-24. **5 landing templates prontos** (startup, produto, evento, docs, contato) em `examples/templates/` — copiar → editar → publicar (dar ao usuário um ponto de partida de download).
+24. **8 templates prontos** (startup, produto, evento, docs, contato, blog, bio, vendas) em `examples/templates/` — copiar → editar → publicar (dar ao usuário um ponto de partida de download).
 25. **`prefers-contrast` automático** — acionar o modo alto contraste via media query do SO (sem botão).
 26. **CLI `mimepy init/build`** — criar projeto + rodar build com 1 comando (democratiza).
 27. **Busca com snippet/destaque** — mostrar o trecho que casou no resultado.
@@ -54,7 +54,7 @@
 ## 🌍 Mercado/adoção
 
 13. ✅ **Badge de licença/versão** no README e no site (pills inline offline).
-14. ✅ **Templates de exemplo** — 5 landing templates prontos (startup, produto, evento, docs, contato) em `examples/templates/`.
+14. ✅ **Templates de exemplo** — 8 landing templates prontos (startup, produto, evento, docs, contato, blog, bio, vendas) em `examples/templates/`.
 15. ✅ **Changelog** + gerador (N15).
 16. ✅ **GitHub Actions** — CI + Pages (N16).
 

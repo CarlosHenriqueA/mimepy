@@ -51,11 +51,24 @@ Evolução do framework. **Prioridade: 🔴 alta · 🟡 média · 🟢 baixa.**
 - [x] **Temas alternativos** pré-prontos (`theme: light/dark/neon/paper/mono`)
 - [x] **TOC sticky** em docs longas (`.df-toc` fixo ao rolar)
 - [x] **Atalho de teclado `/`** para focar a busca (padrão GitBook/Mintlify)
-- [x] **Templates de landing prontos** (startup, produto, evento, docs, contato) em `examples/templates/`
+- [x] **Templates de landing prontos** (startup, produto, evento, docs, contato, blog, bio, vendas) em `examples/templates/`
 - [x] **Documentação técnica** `docs/TECNICO.md` (para dev/IA)
 - [x] **Modo landing**: formulário de contato via Markdown (bloco `fence form`, offline)
 - [x] **Página de "Acessibilidade"** na doc do framework (declarar conformidade WCAG e recursos nativos) [a11y]
 - [x] Opção de **tamanho de fonte** e **alto contraste** no topo (recurso WAI) [a11y]
+
+## ✅ Feito (v0.5)
+
+- [x] **Templates aprimorados** — `startup`, `produto` e `evento` com mais camadas
+  (sobre, valores, equipe/métricas, depoimentos, comparativo, agenda, palestrantes,
+  ingressos, FAQ) e dados de demonstração realistas.
+- [x] **Template `blog`** movido para o módulo de templates (padrão com os demais).
+- [x] **Template `bio`** (link-in-bio estilo Linktree): perfil, botões, produto,
+  newsletter — com `PESQUISA_CONCORRENTES.md` (pesquisa prévia do mercado).
+- [x] **Template `landingpage`** de alta conversão + **página conectada `thank-you.html`**.
+- [x] **Página conectada** no motor: `build_landing` copia `thank-you.html` da pasta
+  do config para a saída; `deploy_pages.py` também publica no `_site`.
+- [x] **Home** com acesso direto a todos os templates/exemplos (15 links, 0 quebrados).
 
 ## 🟡 Média (concluído — v0.3)
 

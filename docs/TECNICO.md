@@ -110,6 +110,10 @@ Monta a **landing page** (mode landing) a partir de UM `.md`:
 - listas `- **Título**: desc` → viram cards (recuso M5)
 - bloco ` ```form ` → formulário de contato (mailto, offline)
 - injeta tema (dark/light) + botão de tema na navbar
+- **Página conectada** (thank-you): se houver um `thank-you.html` na MESMA pasta
+  do config (fonte versionada), o build o copia para a pasta de saída — permite
+  fluxos multi-página simples (ex.: landing de vendas → confirmação) sem quebrar
+  o pilar "1 arquivo". O `deploy_pages.py` também o copia para o `_site`.
 
 ### `build_blog(cfg, base_dir)`
 Monta um **blog** (mode blog) a partir de uma pasta de `.md` (padrão Docusaurus):

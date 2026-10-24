@@ -35,7 +35,7 @@ jobs:
           python src/build.py examples/recursos/config.recursos.py
           python src/build.py examples/demo/config.demo.py
           python src/build.py examples/blog/config.blog.py
-          for t in examples/templates/startup examples/templates/produto examples/templates/evento examples/templates/docs examples/templates/contato; do
+          for t in examples/templates/startup examples/templates/produto examples/templates/evento examples/templates/docs examples/templates/contato examples/templates/blog examples/templates/bio examples/templates/landingpage; do
             python src/build.py "$t/config.py"
           done
 
@@ -60,7 +60,7 @@ jobs:
           python src/build.py examples/recursos/config.recursos.py
           python src/build.py examples/demo/config.demo.py
           python src/build.py examples/blog/config.blog.py
-          for t in examples/templates/startup examples/templates/produto examples/templates/evento examples/templates/docs examples/templates/contato; do
+          for t in examples/templates/startup examples/templates/produto examples/templates/evento examples/templates/docs examples/templates/contato examples/templates/blog examples/templates/bio examples/templates/landingpage; do
             python src/build.py "$t/config.py"
           done
       - name: Montar _site completo (home + doc + exemplos + auxiliares)

@@ -60,8 +60,8 @@ mimepy/
 │   ├── demo/                  ← "Solaris Kit" (reuso em outro produto)
 │   ├── blog/                  ← Exemplo de modo blog
 │   ├── versoes/               ← Exemplo de multi-versão (/v1/, /v2/)
-│   └── templates/             ← 5 templates de landing (startup, produto,
-│                                evento, docs, contato)
+│   └── templates/             ← 8 templates de landing (startup, produto,
+│                                evento, docs, contato, blog, bio, vendas)
 ├── scripts/                   ← Ferramentas auxiliares
 │   ├── check_a11y.py          ← Valida a11y (WCAG + npx designmd)
 │   ├── deploy_pages.py        ← Monta _site/ para GitHub Pages
@@ -212,5 +212,5 @@ Não é uma feature; é embutida na estrutura do HTML gerado:
 
 ---
 
-*Documentação de construção — MimePy v0.4. Se algo aqui divergir do código, o
+*Documentação de construção — MimePy v0.5. Se algo aqui divergir do código, o
 código é a fonte da verdade; atualize este documento.*

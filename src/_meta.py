@@ -4,4 +4,4 @@
 Fonte única de `VERSION` para evitar *drift* entre módulos ao refatorar.
 Importada por build.py, modes.py, cli.py, etc.
 """
-VERSION = "0.4"
+VERSION = "0.5"
